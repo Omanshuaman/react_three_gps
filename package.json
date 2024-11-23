@@ -1,40 +1,40 @@
 {
-  "name": "react_three_gps",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
-  "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "lint": "eslint .",
-    "preview": "vite preview"
-  },
+  "name": "react-globe-311",
+  "version": "1.0.0",
+  "description": "https://github.com/chrisrzhou/react-globe/compare/v3.0.2...v3.1.1",
+  "keywords": [
+    "react-globe",
+    "webgl",
+    "visualization",
+    "globe",
+    "react"
+  ],
+  "main": "src/index.jsx",
   "dependencies": {
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "loader-utils": "3.2.1",
-    "react-three-map": "0.8.2",
-    "three": "0.165.0",
-    "react-map-gl": "7.1.7",
-    "maplibre-gl": "4.5.0",
-    "@react-three/fiber": "8.16.8",
-    "@react-three/drei": "9.107.0",
-    "three-stdlib": "2.30.3",
-    "@types/three": "0.165.0",
-    "mapbox-gl": "3.4.0",
-    "@emotion/react": "^11.10.4",
-    "@emotion/styled": "^11.10.4",
-    "@types/node": "^16.11.59",
-    "react-router-dom": "^6.4.1"
+    "es6-tween": "5.5.11",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "react-globe": "5.0.2",
+    "three": "0.109.0",
+    "typescript": "^5.7.2"
   },
   "devDependencies": {
-    "@eslint/js": "^9.13.0",
-    "@vitejs/plugin-react-swc": "^3.5.0",
-    "eslint": "^9.13.0",
-    "eslint-plugin-react": "^7.37.2",
-    "eslint-plugin-react-hooks": "^5.0.0",
-    "eslint-plugin-react-refresh": "^0.4.14",
-    "globals": "^15.11.0",
-    "vite": "^5.4.10"
-  }
+    "babel-loader": "9.2.1",
+    "@vitejs/plugin-react": "2.2.0",
+    "vite-plugin-svgr": "0.3.0",
+    "vite": "3.2.2"
+  },
+  "scripts": {
+    "start": "vite",
+    "build": "tsc && vite build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "serve": "vite preview"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }
