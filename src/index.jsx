@@ -17,7 +17,7 @@ function App() {
     <div className="">
       <ReactGlobe
         height="100vh"
-        globeTexture="https://raw.githubusercontent.com/chrisrzhou/react-globe/main/textures/globe_dark.jpg"
+        globeTexture="https://raw.githubusercontent.com/chrisrzhou/react-globe/main/textures/globe.jpg"
         markers={markers}
         width="100vw"
         options={options}

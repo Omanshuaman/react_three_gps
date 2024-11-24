@@ -7,8 +7,8 @@ function random(scaleFactor) {
     : -scaleFactor * Math.random();
 }
 
-const MARKER_COLOR = "#fcffbe";
-const MARKER_COMPANION_COLOR = "#fff9e6";
+const MARKER_COLOR = "#33cc33";
+const MARKER_COMPANION_COLOR = "#33cc33";
 
 export default function markerRenderer(marker) {
   const size = Math.max(marker.value / 20, 1);
@@ -40,43 +40,5 @@ export default function markerRenderer(marker) {
     mesh.add(companion);
   }
 
-  companions.forEach((companion, i) => {
-    function animate() {
-      const from = {
-        opacity: 0.1,
-        position: companion.position.clone().toArray(),
-        scale: Math.max(0.5, Math.random()),
-      };
-      const to = {
-        opacity: 0.5,
-        position: [random(size * 3), random(size * 3), random(size)],
-        scale: 0.01,
-      };
-      const tween = new TWEEN.Tween(from)
-        .to(to, 4000)
-        .easing(TWEEN.Easing.Quadratic.InOut)
-        .delay(i * 200);
-      tween
-        .on("update", () => {
-          const [x, y, z] = from.position;
-          const companionMaterial = companion.material;
-          const intensityChange = random(0.05);
-          if (
-            light.intensity + intensityChange > 0 &&
-            light.intensity + intensityChange < 1.5
-          ) {
-            light.intensity += intensityChange;
-          }
-          companionMaterial.opacity = from.opacity;
-          companion.scale.x = from.scale;
-          companion.scale.y = from.scale;
-          companion.scale.z = from.scale;
-          companion.position.set(x, y, z);
-        })
-        .on("complete", animate)
-        .start();
-    }
-    animate();
-  });
   return mesh;
 }
