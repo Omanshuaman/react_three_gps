@@ -1,12 +1,5 @@
 const markers = [
   {
-    id: 1,
-    city: "South Pole Station",
-    color: "red",
-    coordinates: [-90.0, 0.0], // South Pole
-    value: 100,
-  },
-  {
     id: 2,
     city: "McMurdo Station",
     color: "green",
