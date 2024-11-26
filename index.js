@@ -1,7 +1,7 @@
 import * as THREE from "three";
-import { OrbitControls } from "jsm/controls/OrbitControls.js";
 import getStarfield from "./src/starField.js";
 import { getFresnelMat } from "./src/glowlight.js";
+import { OrbitControls } from "three/examples/jsm/Addons.js";
 
 const w = window.innerWidth;
 const h = window.innerHeight;
@@ -26,7 +26,7 @@ scene.add(earthGrp);
 const loader = new THREE.TextureLoader();
 const geometry = new THREE.IcosahedronGeometry(1.0, 16);
 const material = new THREE.MeshStandardMaterial({
-  map: loader.load("./textures/8081_earthmap4k.jpg"),
+  map: loader.load("/8081_earthmap4k.jpg"),
 });
 
 const earthMesh = new THREE.Mesh(geometry, material);
@@ -36,7 +36,7 @@ const stars = getStarfield({ numStars: 2000 });
 scene.add(stars);
 
 const lightMaterial = new THREE.MeshBasicMaterial({
-  map: loader.load("./textures/8081_earthlights4k.jpg"),
+  map: loader.load("/8081_earthlights4k.jpg"),
   blending: THREE.AdditiveBlending,
   opacity: 0.2,
 });
@@ -44,7 +44,7 @@ const lightMesh = new THREE.Mesh(geometry, lightMaterial);
 earthGrp.add(lightMesh);
 
 const cloudMaterial = new THREE.MeshStandardMaterial({
-  map: loader.load("./textures/8081_earthcloud4k.jpg"),
+  map: loader.load("/8081_earthcloud4k.jpg"),
   transparent: true,
   opacity: 0.6,
   blending: THREE.AdditiveBlending,
@@ -59,7 +59,7 @@ glowMesh.scale.setScalar(1.01);
 earthGrp.add(glowMesh);
 
 const bumpMaterial = new THREE.MeshBasicMaterial({
-  map: loader.load("./textures/8081_earthbump4k.jpg"),
+  map: loader.load("/8081_earthbump4k.jpg"),
   blending: THREE.AdditiveBlending,
   opacity: 0.2,
 });
