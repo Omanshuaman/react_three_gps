@@ -2,9 +2,13 @@ import * as THREE from "three";
 import getStarfield from "./src/starField.js";
 import { getFresnelMat } from "./src/glowlight.js";
 import { OrbitControls } from "three/examples/jsm/Addons.js";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader";
 
 const w = window.innerWidth;
 const h = window.innerHeight;
+var raycaster = new THREE.Raycaster();
+var mouse = new THREE.Vector2();
 
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(w, h);
@@ -14,8 +18,40 @@ const camera = new THREE.PerspectiveCamera(75, w / h, 0.1, 1000);
 camera.position.z = 3;
 
 const scene = new THREE.Scene();
+const loader3d = new GLTFLoader();
+const dracoLoader = new DRACOLoader();
+dracoLoader.setDecoderPath(
+  "https://www.gstatic.com/draco/versioned/decoders/1.5.5/"
+);
+dracoLoader.setDecoderConfig({ type: "js" });
+loader3d.setDRACOLoader(dracoLoader);
+loader3d.load(
+  "https://res.cloudinary.com/dd3c4j1sm/image/upload/v1732623038/Mountain_bcrwux.glb",
+  (gltf) => {
+    const model = gltf.scene;
+    console.log(model);
+    model.scale.set(0.0001, 0.0001, 0.0001);
+    model.position.set(-0.5, -0.9, 0);
+    model.rotation.x = 3.1;
 
+    scene.add(model);
+  },
+  (xhr) => {
+    console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
+  },
+  (error) => {
+    console.error("An error occurred while loading the GLB model:", error);
+  }
+);
 const controls = new OrbitControls(camera, renderer.domElement);
+camera.position.set(
+  -1.1871522657333535,
+  -1.8877056018913316,
+  0.16503653702212545
+);
+// controls.addEventListener("change", (event) => {
+//   console.log(controls.object.position);
+// });
 controls.enableDamping = true;
 controls.dampingFactor = 0.03;
 
@@ -67,24 +103,13 @@ const bumpMesh = new THREE.Mesh(geometry, bumpMaterial);
 bumpMesh.scale.setScalar(1.002);
 earthGrp.add(bumpMesh);
 
-// const wireMat = new THREE.MeshBasicMaterial({
-//     color: 0xffffff,
-//     wireframe: true
-// });
-// const wireMesh = new THREE.Mesh(geometry, wireMat);
-// wireMesh.scale.setScalar(1.101);
-// mesh.add(wireMesh);
-
 const sunLight = new THREE.DirectionalLight(0xffffff, 2.0);
-sunLight.position.set(-1, 0.5, 1.5);
+sunLight.position.set(-10, 0.5, 1.5);
 scene.add(sunLight);
 
 function animate() {
   requestAnimationFrame(animate);
-  earthMesh.rotation.y += 0.0005;
-  lightMesh.rotation.y += 0.0005;
-  bumpMesh.rotation.y += 0.0005;
-  cloudMesh.rotation.y += 0.0007;
+
   renderer.render(scene, camera);
   controls.update();
 }
