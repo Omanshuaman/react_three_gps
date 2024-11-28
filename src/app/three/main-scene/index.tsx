@@ -18,6 +18,8 @@ import {
   drawPass,
 } from "../utils/draw-pass";
 import { Earth } from "../components/earth";
+import { Kamdo } from "../components/kamdo";
+
 import { Stars } from "../components/stars";
 import { Sun } from "../components/sun";
 import { ArsatScene } from "../components/arsat/arsat-scene";
@@ -139,6 +141,8 @@ export const MainScene = () => {
         }}>
         <primitive object={innerCameras.earth} />
         <Earth />
+        <Kamdo rotation={[0, Math.PI, 0]} />
+
         <ambientLight intensity={1} />
       </RenderTexture>
 

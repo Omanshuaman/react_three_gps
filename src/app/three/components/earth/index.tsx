@@ -42,7 +42,7 @@ export const Earth = ({ ...props }: EarthProps & GroupProps) => {
   });
 
   return (
-    <group {...props}>
+    <group {...props} scale={3}>
       <Sphere args={[1, verteces, verteces]}>
         <shaderMaterial
           vertexShader={earthVertexShader}
