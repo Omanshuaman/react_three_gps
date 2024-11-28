@@ -1,35 +1,18 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
-import { Canvas, useFrame } from "@react-three/fiber";
-import { MainScene } from "./main-scene";
-import { Leva } from "leva";
-import { useApp } from "@/store";
-import { Debug } from "./debug";
-import {
-  Environment,
-  Grid,
-  Html,
-  OrbitControls,
-  Stage,
-  useGLTF,
-} from "@react-three/drei";
-import { Suspense, useRef } from "react";
-import {
-  EffectComposer,
-  Bloom,
-  ToneMapping,
-} from "@react-three/postprocessing";
+import { useFrame } from "@react-three/fiber";
+import { useGLTF } from "@react-three/drei";
+import { useRef } from "react";
 import { easing } from "maath";
-export interface KamdoProps {}
 
-export const Kamdo = ({ ...props }: KamdoProps & GroupProps) => {
+export const Kamdo = ({ ...props }) => {
   const head = useRef();
   const stripe = useRef();
   const light = useRef();
   const { nodes, materials } = useGLTF("/models/kamdo.glb");
   useFrame((state, delta) => {
     const t = (1 + Math.sin(state.clock.elapsedTime * 2)) / 2;
+
     stripe.current.color.setRGB(2 + t * 20, 2, 20 + t * 50);
     easing.dampE(
       head.current.rotation,
@@ -37,6 +20,7 @@ export const Kamdo = ({ ...props }: KamdoProps & GroupProps) => {
       0.4,
       delta
     );
+
     light.current.intensity = 1 + t * 4;
   });
   return (
