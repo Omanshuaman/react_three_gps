@@ -6,7 +6,6 @@ import { MainScene } from "./main-scene";
 import { Leva } from "leva";
 import { useApp } from "@/store";
 import { Debug } from "./debug";
-import { PrimaryScene } from "./components/PrimaryScene";
 import { Html } from "@react-three/drei";
 import { Suspense } from "react";
 
