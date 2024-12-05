@@ -20,6 +20,7 @@ import {
 import { Earth } from "../components/earth";
 import { Kamdo } from "../components/kamdo";
 import { useConfigurator } from "../../contexts/Configurator";
+import Annotation from "./Annotation";
 
 import { Stars } from "../components/stars";
 import { Sun } from "../components/sun";
@@ -142,8 +143,9 @@ export const MainScene = () => {
           r && setCamera(r as ThreePerspectiveCamera);
         }}
       />
+      {/* @ts-ignore */}
       <Tween />
-
+      <Annotation controls={ref} />
       <OrbitControls camera={camera as any} ref={ref} />
 
       <RenderTexture
