@@ -19,6 +19,7 @@ import {
 } from "../utils/draw-pass";
 import { Earth } from "../components/earth";
 import { Kamdo } from "../components/kamdo";
+import { useConfigurator } from "../../contexts/Configurator";
 
 import { Stars } from "../components/stars";
 import { Sun } from "../components/sun";
@@ -46,7 +47,8 @@ const innerCameras = {
 export const MainScene = () => {
   const gl = useThree((s) => s.gl);
   const ref = useRef();
-
+  const { mode } = useConfigurator();
+  console.log(mode);
   const [_, setRenderUniforms] = useUniforms<RenderUniforms>(
     defaultRenderUniforms,
     {
@@ -125,10 +127,10 @@ export const MainScene = () => {
 
     renderer.composer.render();
   }, 1);
-  useFrame(() => {
-    console.log("lookat", ref.current.target);
-    console.log("camera postion", camera?.position);
-  });
+  // useFrame(() => {
+  //   console.log("lookat", ref.current.target);
+  //   console.log("camera postion", camera?.position);
+  // });
 
   return (
     <>
