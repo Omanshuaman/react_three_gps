@@ -21,6 +21,7 @@ import {
   ToneMapping,
 } from "@react-three/postprocessing";
 import { easing } from "maath";
+import * as THREE from "three";
 
 export const WebGl: React.FC = () => {
   const params = useSearchParams();

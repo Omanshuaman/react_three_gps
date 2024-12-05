@@ -24,7 +24,7 @@ export const Kamdo = ({ ...props }) => {
     light.current.intensity = 1 + t * 4;
   });
   return (
-    <group {...props} scale={0.2} position={[2, 2, 2]}>
+    <group {...props} scale={0.02} rotation={[0, 0, -1.2]}>
       <mesh
         castShadow
         receiveShadow

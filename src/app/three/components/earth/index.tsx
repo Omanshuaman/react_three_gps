@@ -3,9 +3,10 @@ import { SRGBColorSpace, TextureLoader, Vector3 } from "three";
 import { GroupProps, useFrame, useLoader } from "@react-three/fiber";
 
 import { earthFragmentShader, earthVertexShader } from "./shaders";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { Atmosphere } from "../atmosphere";
 import { useSun } from "../sun";
+import { Kamdo } from "../kamdo";
 
 const verteces = Math.pow(2, 9);
 
@@ -41,8 +42,12 @@ export const Earth = ({ ...props }: EarthProps & GroupProps) => {
     uniformsRef.current.uTime.value += delta;
   });
 
+  // Position the red dot on the sphere surface
+  const redDotPosition = new Vector3(1.01, 0, 0); // X-axis on the surface of the sphere
+
   return (
     <group {...props} scale={3}>
+      {/* Earth Sphere */}
       <Sphere args={[1, verteces, verteces]}>
         <shaderMaterial
           vertexShader={earthVertexShader}
@@ -51,6 +56,9 @@ export const Earth = ({ ...props }: EarthProps & GroupProps) => {
         />
         <Atmosphere />
       </Sphere>
+
+      {/* <meshStandardMaterial color="red" /> */}
+      <Kamdo position={redDotPosition} />
     </group>
   );
 };

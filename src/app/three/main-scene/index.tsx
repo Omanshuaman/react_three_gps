@@ -1,7 +1,7 @@
 import { OrbitControls, PerspectiveCamera } from "@react-three/drei";
 
 import { useApp } from "@/store";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   HalfFloatType,
   Scene,
@@ -30,7 +30,12 @@ import {
   VignetteEffect,
   RenderPass,
 } from "postprocessing";
-
+import TWEEN from "@tweenjs/tween.js";
+function Tween() {
+  useFrame(() => {
+    TWEEN.update();
+  });
+}
 // Clones of the camera that will be injected into each scene
 const innerCameras = {
   arsat: new ThreePerspectiveCamera(),
@@ -40,6 +45,7 @@ const innerCameras = {
 
 export const MainScene = () => {
   const gl = useThree((s) => s.gl);
+  const ref = useRef();
 
   const [_, setRenderUniforms] = useUniforms<RenderUniforms>(
     defaultRenderUniforms,
@@ -119,6 +125,10 @@ export const MainScene = () => {
 
     renderer.composer.render();
   }, 1);
+  useFrame(() => {
+    console.log("lookat", ref.current.target);
+    console.log("camera postion", camera?.position);
+  });
 
   return (
     <>
@@ -130,7 +140,9 @@ export const MainScene = () => {
           r && setCamera(r as ThreePerspectiveCamera);
         }}
       />
-      <OrbitControls camera={camera as any} />
+      <Tween />
+
+      <OrbitControls camera={camera as any} ref={ref} />
 
       <RenderTexture
         width={width}
@@ -141,18 +153,9 @@ export const MainScene = () => {
         }}>
         <primitive object={innerCameras.earth} />
         <Earth />
-        <Kamdo rotation={[0, Math.PI, 0]} />
 
         <ambientLight intensity={1} />
       </RenderTexture>
-
-      {/* <RenderTexture
-        width={width}
-        height={height}
-        camera={innerCameras.earth}
-        onMapTexture={(earthFbo) => {
-          setRenderUniforms({ earthFbo });
-        }}></RenderTexture> */}
 
       <RenderTexture
         toneMappingExposure={10}
