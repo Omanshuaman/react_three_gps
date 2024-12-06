@@ -1,5 +1,4 @@
 "use client";
-
 import { useFrame } from "@react-three/fiber";
 import { useGLTF } from "@react-three/drei";
 import { useRef } from "react";
@@ -23,8 +22,15 @@ export const Kamdo = ({ ...props }) => {
 
     light.current.intensity = 1 + t * 4;
   });
+  const handleClick = () => {
+    console.log("Red dot clicked! State is now true.");
+  };
   return (
-    <group {...props} scale={0.003} rotation={[0, 0, -1.4]}>
+    <group
+      {...props}
+      scale={0.03}
+      rotation={[0, 0, -1.4]}
+      onClick={handleClick}>
       <mesh
         castShadow
         receiveShadow

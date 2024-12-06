@@ -1,0 +1,28 @@
+{
+  "name": "earth",
+  "source": "src/index.html",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@react-three/drei": "https://pkg.csb.dev/pmndrs/drei/commit/0808b399/@react-three/drei",
+    "@react-three/fiber": "^8.13.0",
+    "@react-three/postprocessing": "^2.14.9",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "three-stdlib": "^2.34.0",
+    "vite": "^3.0.4"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^2.0.0",
+    "buffer": "^6.0.3",
+    "process": "^0.11.10"
+  }
+}

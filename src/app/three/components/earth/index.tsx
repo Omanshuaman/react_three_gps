@@ -1,9 +1,8 @@
 import { Sphere } from "@react-three/drei";
 import { SRGBColorSpace, TextureLoader, Vector3 } from "three";
 import { GroupProps, useFrame, useLoader } from "@react-three/fiber";
-
 import { earthFragmentShader, earthVertexShader } from "./shaders";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { Atmosphere } from "../atmosphere";
 import { useSun } from "../sun";
 import { Kamdo } from "../kamdo";
@@ -41,13 +40,17 @@ export const Earth = ({ ...props }: EarthProps & GroupProps) => {
     uniformsRef.current.lightDirection.value.copy(sunDirection);
     uniformsRef.current.uTime.value += delta;
   });
+  const [isActive, setIsActive] = useState(false);
 
-  // Position the red dot on the sphere surface
-  const redDotPosition = new Vector3(1.001, 0, 0); // X-axis on the surface of the sphere
+  const handleClick = () => {
+    setIsActive(true);
+    console.log("Red dot clicked! State is now true.");
+  };
+  const redDotPosition = new Vector3(1.08, 0, 0); // X-axis on the surface of the sphere
+  const kamdoPosition = new Vector3(1.001, 0, 0); // X-axis on the surface of the sphere
 
   return (
-    <group {...props} scale={3}>
-      {/* Earth Sphere */}
+    <group {...props} scale={3} onClick={handleClick}>
       <Sphere args={[1, verteces, verteces]}>
         <shaderMaterial
           vertexShader={earthVertexShader}
@@ -57,8 +60,8 @@ export const Earth = ({ ...props }: EarthProps & GroupProps) => {
         <Atmosphere />
       </Sphere>
 
-      {/* <meshStandardMaterial color="red" /> */}
-      <Kamdo position={redDotPosition} />
+      {/* Additional Content */}
+      <Kamdo position={kamdoPosition} />
     </group>
   );
 };

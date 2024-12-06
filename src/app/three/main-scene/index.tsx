@@ -18,6 +18,8 @@ import {
   drawPass,
 } from "../utils/draw-pass";
 import { Earth } from "../components/earth";
+import { Reddot } from "../components/earth/reddot";
+
 import { Kamdo } from "../components/kamdo";
 import { useConfigurator } from "../../contexts/Configurator";
 import Annotation from "./Annotation";
@@ -128,11 +130,11 @@ export const MainScene = () => {
 
     renderer.composer.render();
   }, 1);
-  useFrame(() => {
-    //@ts-ignore
-    console.log("lookat", ref.current.target);
-    console.log("camera postion", camera?.position);
-  });
+  // useFrame(() => {
+  //   //@ts-ignore
+  //   console.log("lookat", ref.current.target);
+  //   console.log("camera postion", camera?.position);
+  // });
 
   return (
     <>

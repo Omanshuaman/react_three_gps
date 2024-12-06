@@ -24,6 +24,7 @@ import { easing } from "maath";
 import * as THREE from "three";
 import Annotation from "./main-scene/Annotation";
 import Dashboard from "../test/page";
+import { Kamdo } from "./components/kamdo";
 
 export const WebGl: React.FC = () => {
   const params = useSearchParams();
@@ -71,6 +72,15 @@ export const GlCanvas = () => {
         height: "100%",
         overflow: "hidden",
       }}>
+      <fog attach="fog" args={["black", 15, 22.5]} />
+      {/* <Stage
+        intensity={0.5}
+        environment="city"
+        shadows={{ type: "accumulative", bias: -0.001, intensity: Math.PI }}
+        adjustCamera={false}>
+        <Kamdo rotation={[0, Math.PI, 0]} />
+      </Stage> */}
+
       {/* <PrimaryScene /> */}
       <Suspense fallback={<Loading />}>
         <Stage
@@ -78,6 +88,8 @@ export const GlCanvas = () => {
           environment="city"
           shadows={{ type: "accumulative", bias: -0.001, intensity: Math.PI }}
           adjustCamera={false}>
+          {/* <Kamdo rotation={[0, Math.PI, 0]} /> */}
+
           <MainScene />
           <Debug />
         </Stage>
