@@ -22,6 +22,8 @@ import {
 } from "@react-three/postprocessing";
 import { easing } from "maath";
 import * as THREE from "three";
+import Annotation from "./main-scene/Annotation";
+import Dashboard from "../test/page";
 
 export const WebGl: React.FC = () => {
   const params = useSearchParams();
@@ -85,9 +87,11 @@ export const GlCanvas = () => {
         <Bloom luminanceThreshold={2} mipmapBlur />
         <ToneMapping />
       </EffectComposer>
-      <Html>
-        <div className="w-3/4 h-1/2 bg-gray-900 border-4 border-gray-700 rounded-md animate-tvOpen"></div>
-      </Html>
+      {/* <Html position={[2, 0, 0]}>
+        <div className="w-full h-1/2 bg-gray-900 border-4 border-gray-700 rounded-md animate-tvOpen">
+          <Dashboard />
+        </div>
+      </Html> */}
     </Canvas>
     // <Canvas flat shadows camera={{ position: [-15, 0, 10], fov: 25 }}>
     //   <fog attach="fog" args={["black", 15, 22.5]} />

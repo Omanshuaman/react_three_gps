@@ -43,7 +43,7 @@ export const Earth = ({ ...props }: EarthProps & GroupProps) => {
   });
 
   // Position the red dot on the sphere surface
-  const redDotPosition = new Vector3(1.01, 0, 0); // X-axis on the surface of the sphere
+  const redDotPosition = new Vector3(1.001, 0, 0); // X-axis on the surface of the sphere
 
   return (
     <group {...props} scale={3}>
