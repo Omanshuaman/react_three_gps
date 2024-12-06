@@ -51,7 +51,6 @@ function Loading() {
 export const GlCanvas = () => {
   const params = useSearchParams();
   const isDebug = params.get("debug") !== null;
-
   return (
     <Canvas
       gl={{
@@ -86,6 +85,9 @@ export const GlCanvas = () => {
         <Bloom luminanceThreshold={2} mipmapBlur />
         <ToneMapping />
       </EffectComposer>
+      <Html>
+        <div className="w-3/4 h-1/2 bg-gray-900 border-4 border-gray-700 rounded-md animate-tvOpen"></div>
+      </Html>
     </Canvas>
     // <Canvas flat shadows camera={{ position: [-15, 0, 10], fov: 25 }}>
     //   <fog attach="fog" args={["black", 15, 22.5]} />

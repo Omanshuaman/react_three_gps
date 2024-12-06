@@ -47,7 +47,7 @@ const innerCameras = {
 
 export const MainScene = () => {
   const gl = useThree((s) => s.gl);
-  const ref = useRef();
+  const ref = useRef(null);
   const { mode } = useConfigurator();
   console.log(mode);
   const [_, setRenderUniforms] = useUniforms<RenderUniforms>(
@@ -128,10 +128,11 @@ export const MainScene = () => {
 
     renderer.composer.render();
   }, 1);
-  // useFrame(() => {
-  //   console.log("lookat", ref.current.target);
-  //   console.log("camera postion", camera?.position);
-  // });
+  useFrame(() => {
+    //@ts-ignore
+    console.log("lookat", ref.current.target);
+    console.log("camera postion", camera?.position);
+  });
 
   return (
     <>
