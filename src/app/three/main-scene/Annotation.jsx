@@ -52,7 +52,7 @@ const Annotation = ({ controls }) => {
                     y: a.lookAt.y,
                     z: a.lookAt.z,
                   },
-                  800
+                  2800
                 )
                 .easing(TWEEN.Easing.Cubic.Out)
                 .start();
@@ -65,7 +65,7 @@ const Annotation = ({ controls }) => {
                     z: a.camPos.z,
                   },
 
-                  800
+                  2800
                 )
                 .easing(TWEEN.Easing.Cubic.Out)
                 .start();
