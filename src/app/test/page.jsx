@@ -8,7 +8,7 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
-} from "Recharts";
+} from "recharts";
 import clsx from "clsx";
 import { useSpring, animated, config } from "@react-spring/web";
 
