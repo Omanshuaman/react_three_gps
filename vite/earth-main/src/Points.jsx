@@ -1,5 +1,7 @@
 import { useMemo, useState } from "react";
-import { Html } from "@react-three/drei";
+import { Html, Sphere } from "@react-three/drei";
+import { useThree } from "@react-three/fiber";
+import TWEEN from "@tweenjs/tween.js";
 
 const data = [
   {
@@ -26,6 +28,38 @@ const data = [
     population: 53123000,
     name: "sydney, au",
   },
+  {
+    lat: -82.8628,
+    lon: 135.0,
+    population: 1106,
+    name: "antarctica (research stations)",
+    camPos: {
+      x: 1.2180728574289914,
+      y: -1.552033044337705,
+      z: -4.993948284315608,
+    },
+    lookAt: {
+      x: 0,
+      y: 0,
+      z: 0,
+    },
+    goback: {
+      x: 0,
+      y: 5.000000000000002,
+      z: 10,
+    },
+    lookback: {
+      x: 0,
+      y: 0,
+      z: 0,
+    },
+  },
+  {
+    lat: 28.6139,
+    lon: 77.209,
+    population: 32000000,
+    name: "delhi, india",
+  },
 ];
 
 // offset the point to sit more on the surface of the sphere.
@@ -41,7 +75,7 @@ function calcPosFromLatLonRad(lat, lon) {
   return [x, y, z];
 }
 
-export const Points = () => {
+export const Points = ({ controls }) => {
   const positions = useMemo(() => {
     return data.map((point) => calcPosFromLatLonRad(point.lat, point.lon));
   });
@@ -50,21 +84,56 @@ export const Points = () => {
     <group>
       {positions &&
         positions.map((pos, i) => (
-          <Point key={i} pos={pos} name={data.length > 0 && data[i].name} />
+          <Point
+            key={i}
+            pos={pos}
+            name={data.length > 0 && data[i].name}
+            data={data[i]}
+            controls={controls}
+          />
         ))}
     </group>
   );
 };
 
-const Point = ({ pos, name }) => {
-  const [clicked, click] = useState(false);
+const Point = ({ pos, name, data, controls }) => {
+  const [clicked, setClicked] = useState(false);
+  const { camera } = useThree();
+  console.log("positioj", pos, name);
+  const handleClick = () => {
+    setClicked(!clicked);
+
+    // Assuming `animationTarget` contains `lookAt` and `camPos` for this point
+    // Animate the controls target
+    new TWEEN.Tween(controls.current.target)
+      .to(
+        {
+          x: data.lookAt.x,
+          y: data.lookAt.y,
+          z: data.lookAt.z,
+        },
+        2800
+      )
+      .easing(TWEEN.Easing.Cubic.Out)
+      .start();
+
+    // Animate the camera position
+    new TWEEN.Tween(camera.position)
+      .to(
+        {
+          x: data.camPos.x,
+          y: data.camPos.y,
+          z: data.camPos.z,
+        },
+        2800
+      )
+      .easing(TWEEN.Easing.Cubic.Out)
+      .start();
+  };
 
   return (
-    <mesh
-      position={pos}
-      scale={clicked ? 1.5 : 1}
-      onClick={(event) => click(!clicked)}>
-      {/* <planeGeometry args={[0.0125, 16, 16]} /> */}
+    <mesh position={pos} scale={clicked ? 1.5 : 1} onClick={handleClick}>
+      <Sphere args={[0.0125, 16, 16]} color="red" />
       <meshStandardMaterial
         color={0xff0000}
         emissiveIntensity={5}

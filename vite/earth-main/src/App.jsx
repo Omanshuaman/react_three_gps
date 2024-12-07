@@ -4,18 +4,29 @@ import {
   Stars,
   ContactShadows,
   Stage,
+  TrackballControls,
 } from "@react-three/drei";
 import {
   EffectComposer,
   Bloom,
   Noise,
   Vignette,
+  ToneMapping,
 } from "@react-three/postprocessing";
-import { Canvas } from "@react-three/fiber";
-import { Suspense } from "react";
-import { Globe } from "./globe";
+import { Canvas, useFrame } from "@react-three/fiber";
+import { Suspense, useRef } from "react";
+import TWEEN from "@tweenjs/tween.js";
 
+import { Globe } from "./globe";
+import Annotation from "./Annotation";
+function Tween() {
+  useFrame(() => {
+    TWEEN.update();
+  });
+}
 const App = () => {
+  const ref = useRef(null);
+
   return (
     <Canvas shadows camera={{ position: [0, 1, 7], fov: 30 }}>
       <Stars
@@ -27,27 +38,7 @@ const App = () => {
         fade
         speed={1}
       />
-      {/* <spotLight position={[-5, 0, 1]} angle={0.3} penumbra={.5} castShadow intensity={2} shadow-bias={-0.0001} /> */}
-      <pointLight position={[10, 10, 10]} />
-      <hemisphereLight args={[0xffffbb, 0x080820, 1]} />
-      <directionalLight
-        position={[-10, 0, -3.5]}
-        intensity={0.5}
-        color="orange"
-      />
-      <directionalLight
-        position={[-3, -2, -3.5]}
-        intensity={0.2}
-        color="#0c8cbf"
-      />
-      <spotLight
-        position={[5, 0, 5]}
-        intensity={2.5}
-        penumbra={1}
-        angle={0.35}
-        castShadow
-        color="#0c8cbf"
-      />
+
       <ambientLight intensity={0.2} />
       <ContactShadows
         resolution={1024}
@@ -58,21 +49,27 @@ const App = () => {
         opacity={1}
         far={10}
       />
+      <Tween />
+
       <color attach="background" args={["#15151a"]} />
       <Suspense>
         {/* <Environment preset="city" /> */}
-        <OrbitControls />
+        {/* <TrackballControls ref={ref} rotateSpeed={4} /> */}
+        <OrbitControls ref={ref} />
+
         <Stage
-          intensity={5.5}
+          intensity={10}
           environment="city"
           shadows={{ type: "accumulative", bias: -0.001, intensity: Math.PI }}
           adjustCamera={false}>
-          <Globe></Globe>
+          <Globe controls={ref}></Globe>
+          <Annotation controls={ref} />
         </Stage>
         <EffectComposer>
-          <Bloom luminanceThreshold={0} luminanceSmoothing={0.5} height={300} />
+          <Bloom luminanceThreshold={0} luminanceSmoothing={0.5} height={100} />
           <Noise opacity={0.02} />
           <Vignette eskil={false} offset={0.1} darkness={1.1} />
+          <ToneMapping />
         </EffectComposer>
       </Suspense>
     </Canvas>

@@ -7,6 +7,9 @@ import normalMap from "../assets/earth_normal.jpg";
 import displacementMap from "../assets/earth_height.jpg";
 import aoMap from "../assets/earth_ao.jpg";
 import { Points } from "./Points";
+import { Kamdo } from "./Kamdo";
+import { Vector3 } from "three";
+import Annotation from "./Annotation";
 
 export const Globe = ({
   displacementScale = 0.025,
@@ -15,19 +18,24 @@ export const Globe = ({
   color = "white",
   emissive,
   glow,
+  controls,
   ...props
 }) => {
   const groupRef = useRef();
 
-  useFrame(() => {
-    groupRef.current.rotation.y += 0.0005;
-  });
+  // useFrame(() => {
+  //   groupRef.current.rotation.y += 0.0005;
+  // });
+  const kamdoPosition = new Vector3(1.1, 0, 0); // X-axis on the surface of the sphere
+
   return (
     <group {...props}>
-      <Sparkles count={amount} scale={size * 2} size={2} speed={0.1} />
+      <Sparkles count={amount} scale={size * 2} size={1} speed={0.1} />
+      <Annotation controls={controls} />
+
       <group ref={groupRef} rotation={[0, -Math.PI / 8, 0]}>
         <Earth />
-        <Points />
+        <Points controls={controls} />
         <Clouds />
       </group>
     </group>
@@ -70,6 +78,7 @@ export const Clouds = () => {
         transparent={true}
         opacity={0.075}
       />
+      {/* <Kamdo /> */}
     </mesh>
   );
 };
