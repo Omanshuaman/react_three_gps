@@ -34,14 +34,14 @@ const data = [
     population: 1106,
     name: "antarctica (research stations)",
     camPos: {
-      x: 1.2180728574289914,
-      y: -1.552033044337705,
-      z: -4.993948284315608,
+      x: 0.3313066157017256,
+      y: -2.4081344780017715,
+      z: -0.11496029189037765,
     },
     lookAt: {
-      x: 0,
-      y: 0,
-      z: 0,
+      x: 0.33130668396516944,
+      y: -1.244008249611388e-7,
+      z: -0.11496269914734415,
     },
     goback: {
       x: 0,
@@ -112,7 +112,7 @@ const Point = ({ pos, name, data, controls }) => {
           y: data.lookAt.y,
           z: data.lookAt.z,
         },
-        2800
+        2000
       )
       .easing(TWEEN.Easing.Cubic.Out)
       .start();
@@ -125,7 +125,7 @@ const Point = ({ pos, name, data, controls }) => {
           y: data.camPos.y,
           z: data.camPos.z,
         },
-        2800
+        2000
       )
       .easing(TWEEN.Easing.Cubic.Out)
       .start();
@@ -140,7 +140,7 @@ const Point = ({ pos, name, data, controls }) => {
         emissive={0x0000ff}
       />
       {clicked && (
-        <Html distanceFactor={4}>
+        <Html distanceFactor={10}>
           <h4 style={{ margin: 0, padding: 0, color: "white" }}>{name}</h4>
         </Html>
       )}
