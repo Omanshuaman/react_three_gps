@@ -3,32 +3,9 @@ import { Html, Sphere } from "@react-three/drei";
 import { useThree } from "@react-three/fiber";
 import TWEEN from "@tweenjs/tween.js";
 import Test from "./Test";
+import { useFrame } from "@react-three/fiber";
 
 const data = [
-  // {
-  //   lat: 30.266666,
-  //   lon: -97.73333,
-  //   population: 965872,
-  //   name: "austin, tx, us",
-  // },
-  // {
-  //   lat: 24.555059,
-  //   lon: -81.779984,
-  //   population: 24495,
-  //   name: "key west, florida, us",
-  // },
-  // {
-  //   lat: 51.5072,
-  //   lon: -0.1276,
-  //   population: 8982000,
-  //   name: "london, uk",
-  // },
-  // {
-  //   lat: -33.8688,
-  //   lon: 151.2093,
-  //   population: 53123000,
-  //   name: "sydney, au",
-  // },
   {
     lat: -82.8628,
     lon: 135.0,
@@ -46,8 +23,8 @@ const data = [
     },
     goback: {
       x: 0,
-      y: 5.000000000000002,
-      z: 10,
+      y: 1.0000000000000004,
+      z: 7.000000000000006,
     },
     lookback: {
       x: 0,
@@ -55,12 +32,6 @@ const data = [
       z: 0,
     },
   },
-  // {
-  //   lat: 28.6139,
-  //   lon: 77.209,
-  //   population: 32000000,
-  //   name: "delhi, india",
-  // },
 ];
 
 // offset the point to sit more on the surface of the sphere.
@@ -101,35 +72,66 @@ const Point = ({ pos, name, data, controls }) => {
   const [clicked, setClicked] = useState(false);
   const { camera } = useThree();
   console.log("positioj", pos, name);
+  useFrame(() => {
+    //@ts-ignore
+    console.log("lookat", controls.current.target);
+    console.log("camera postion", camera?.position);
+  });
   const handleClick = () => {
+    // Toggle the clicked state
     setClicked(!clicked);
 
-    // Assuming `animationTarget` contains `lookAt` and `camPos` for this point
-    // Animate the controls target
-    new TWEEN.Tween(controls.current.target)
-      .to(
-        {
-          x: data.lookAt.x,
-          y: data.lookAt.y,
-          z: data.lookAt.z,
-        },
-        1000
-      )
-      .easing(TWEEN.Easing.Cubic.Out)
-      .start();
+    if (!clicked) {
+      // Move camera and controls to the clicked point's position and target
+      new TWEEN.Tween(controls.current.target)
+        .to(
+          {
+            x: data.lookAt.x,
+            y: data.lookAt.y,
+            z: data.lookAt.z,
+          },
+          1000
+        )
+        .easing(TWEEN.Easing.Cubic.Out)
+        .start();
 
-    // Animate the camera position
-    new TWEEN.Tween(camera.position)
-      .to(
-        {
-          x: data.camPos.x,
-          y: data.camPos.y,
-          z: data.camPos.z,
-        },
-        1000
-      )
-      .easing(TWEEN.Easing.Cubic.Out)
-      .start();
+      new TWEEN.Tween(camera.position)
+        .to(
+          {
+            x: data.camPos.x,
+            y: data.camPos.y,
+            z: data.camPos.z,
+          },
+          1000
+        )
+        .easing(TWEEN.Easing.Cubic.Out)
+        .start();
+    } else {
+      // Move camera and controls back to the initial position
+      new TWEEN.Tween(controls.current.target)
+        .to(
+          {
+            x: data.goback.x,
+            y: data.goback.y,
+            z: data.goback.z,
+          },
+          1000
+        )
+        .easing(TWEEN.Easing.Cubic.Out)
+        .start();
+
+      new TWEEN.Tween(camera.position)
+        .to(
+          {
+            x: data.lookback.x,
+            y: data.lookback.y,
+            z: data.lookback.z,
+          },
+          1000
+        )
+        .easing(TWEEN.Easing.Cubic.Out)
+        .start();
+    }
   };
 
   return (
