@@ -4,8 +4,33 @@ import { useThree } from "@react-three/fiber";
 import TWEEN from "@tweenjs/tween.js";
 import Test from "./Test";
 import { useFrame } from "@react-three/fiber";
+import { Kamdo } from "./Kamdo";
 
 const data = [
+  {
+    lat: 30.266666,
+    lon: -97.73333,
+    population: 965872,
+    name: "austin, tx, us",
+  },
+  {
+    lat: 24.555059,
+    lon: -81.779984,
+    population: 24495,
+    name: "key west, florida, us",
+  },
+  {
+    lat: 51.5072,
+    lon: -0.1276,
+    population: 8982000,
+    name: "london, uk",
+  },
+  {
+    lat: -33.8688,
+    lon: 151.2093,
+    population: 53123000,
+    name: "sydney, au",
+  },
   {
     lat: -82.8628,
     lon: 135.0,
@@ -31,6 +56,12 @@ const data = [
       y: 0,
       z: 0,
     },
+  },
+  {
+    lat: 28.6139,
+    lon: 77.209,
+    population: 32000000,
+    name: "delhi, india",
   },
 ];
 
@@ -111,11 +142,11 @@ const Point = ({ pos, name, data, controls }) => {
       new TWEEN.Tween(controls.current.target)
         .to(
           {
-            x: data.goback.x,
-            y: data.goback.y,
-            z: data.goback.z,
+            x: data.lookback.x,
+            y: data.lookback.y,
+            z: data.lookback.z,
           },
-          1000
+          2000
         )
         .easing(TWEEN.Easing.Cubic.Out)
         .start();
@@ -123,11 +154,11 @@ const Point = ({ pos, name, data, controls }) => {
       new TWEEN.Tween(camera.position)
         .to(
           {
-            x: data.lookback.x,
-            y: data.lookback.y,
-            z: data.lookback.z,
+            x: data.goback.x,
+            y: data.goback.y,
+            z: data.goback.z,
           },
-          1000
+          2000
         )
         .easing(TWEEN.Easing.Cubic.Out)
         .start();
@@ -135,22 +166,24 @@ const Point = ({ pos, name, data, controls }) => {
   };
 
   return (
-    <mesh position={pos} scale={clicked ? 1.5 : 1} onClick={handleClick}>
-      <Sphere args={[0.0125, 16, 16]} color="red" />
-      <meshStandardMaterial
-        color={0xff0000}
-        emissiveIntensity={5}
-        emissive={0x0000ff}
-      />
-      {clicked && (
-        <Html
-          distanceFactor={4}
-          className="w-[800px]"
-          style={{ transform: "scale(0.7)" }}
-          position={[-0.3, 3, 1.5]}>
-          <Test />
-        </Html>
-      )}
-    </mesh>
+    <group>
+      <mesh position={pos} scale={clicked ? 1.5 : 1} onClick={handleClick}>
+        <Sphere args={[0.0125, 16, 16]} color="red" />
+        <meshStandardMaterial
+          color={0xff0000}
+          emissiveIntensity={5}
+          emissive={0x0000ff}
+        />
+        {clicked && (
+          <Html
+            distanceFactor={4}
+            className="w-[800px]"
+            style={{ transform: "scale(0.7)" }}
+            position={[-0.3, 3, 1.5]}>
+            <Test />
+          </Html>
+        )}
+      </mesh>
+    </group>
   );
 };
