@@ -63,7 +63,7 @@ const Earth = () => {
           shadows={{ type: "accumulative", bias: -0.001, intensity: Math.PI }}
           adjustCamera={false}>
           <Globe controls={ref}></Globe>
-          <Annotation controls={ref} />
+          {/* <Annotation controls={ref} /> */}
         </Stage>
         <EffectComposer>
           <Bloom luminanceThreshold={0} luminanceSmoothing={0.5} height={100} />

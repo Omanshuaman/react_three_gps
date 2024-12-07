@@ -2,32 +2,33 @@ import { useMemo, useState } from "react";
 import { Html, Sphere } from "@react-three/drei";
 import { useThree } from "@react-three/fiber";
 import TWEEN from "@tweenjs/tween.js";
+import Test from "./Test";
 
 const data = [
-  {
-    lat: 30.266666,
-    lon: -97.73333,
-    population: 965872,
-    name: "austin, tx, us",
-  },
-  {
-    lat: 24.555059,
-    lon: -81.779984,
-    population: 24495,
-    name: "key west, florida, us",
-  },
-  {
-    lat: 51.5072,
-    lon: -0.1276,
-    population: 8982000,
-    name: "london, uk",
-  },
-  {
-    lat: -33.8688,
-    lon: 151.2093,
-    population: 53123000,
-    name: "sydney, au",
-  },
+  // {
+  //   lat: 30.266666,
+  //   lon: -97.73333,
+  //   population: 965872,
+  //   name: "austin, tx, us",
+  // },
+  // {
+  //   lat: 24.555059,
+  //   lon: -81.779984,
+  //   population: 24495,
+  //   name: "key west, florida, us",
+  // },
+  // {
+  //   lat: 51.5072,
+  //   lon: -0.1276,
+  //   population: 8982000,
+  //   name: "london, uk",
+  // },
+  // {
+  //   lat: -33.8688,
+  //   lon: 151.2093,
+  //   population: 53123000,
+  //   name: "sydney, au",
+  // },
   {
     lat: -82.8628,
     lon: 135.0,
@@ -54,12 +55,12 @@ const data = [
       z: 0,
     },
   },
-  {
-    lat: 28.6139,
-    lon: 77.209,
-    population: 32000000,
-    name: "delhi, india",
-  },
+  // {
+  //   lat: 28.6139,
+  //   lon: 77.209,
+  //   population: 32000000,
+  //   name: "delhi, india",
+  // },
 ];
 
 // offset the point to sit more on the surface of the sphere.
@@ -112,7 +113,7 @@ const Point = ({ pos, name, data, controls }) => {
           y: data.lookAt.y,
           z: data.lookAt.z,
         },
-        2000
+        1000
       )
       .easing(TWEEN.Easing.Cubic.Out)
       .start();
@@ -125,7 +126,7 @@ const Point = ({ pos, name, data, controls }) => {
           y: data.camPos.y,
           z: data.camPos.z,
         },
-        2000
+        1000
       )
       .easing(TWEEN.Easing.Cubic.Out)
       .start();
@@ -140,8 +141,12 @@ const Point = ({ pos, name, data, controls }) => {
         emissive={0x0000ff}
       />
       {clicked && (
-        <Html distanceFactor={10}>
-          <h4 style={{ margin: 0, padding: 0, color: "white" }}>{name}</h4>
+        <Html
+          distanceFactor={4}
+          className="w-[800px]"
+          style={{ transform: "scale(0.7)" }}
+          position={[-0.3, 3, 1.5]}>
+          <Test />
         </Html>
       )}
     </mesh>

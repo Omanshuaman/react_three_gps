@@ -31,7 +31,7 @@ export const Globe = ({
   return (
     <group {...props}>
       <Sparkles count={amount} scale={size * 2} size={1} speed={0.1} />
-      <Annotation controls={controls} />
+      {/* <Annotation controls={controls} /> */}
 
       <group ref={groupRef} rotation={[0, -Math.PI / 8, 0]}>
         <Earth />
