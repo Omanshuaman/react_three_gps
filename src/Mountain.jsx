@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { Canvas } from "@react-three/fiber";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import {
   Sparkles,
   Shadow,
@@ -20,7 +20,11 @@ import { Kamdo } from "./Kamdo";
 import { Suspense } from "react";
 const Mountain = () => {
   return (
-    <Canvas camera={{ position: [0, 0, 12], fov: 30 }}>
+    <Canvas
+      camera={{
+        position: [-11.5879855613367, 3.013100760490593, -0.7998840149561777],
+        fov: 30,
+      }}>
       <ContactShadows
         resolution={1024}
         frames={1}
@@ -37,7 +41,7 @@ const Mountain = () => {
           ground={{ height: 6, radius: 40, scale: 40 }}
         />
 
-        <Kamdo rotation={[0, Math.PI, 0]} position={[0, 0, 0]} />
+        <Kamdo rotation={[0, Math.PI, 0]} position={[0, 0, -3]} />
 
         <OrbitControls
           autoRotateSpeed={0.85}

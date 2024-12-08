@@ -1,4 +1,4 @@
-import { useFrame } from "@react-three/fiber";
+import { useFrame, useThree } from "@react-three/fiber";
 import { Html, Shadow, useGLTF } from "@react-three/drei";
 import { useRef } from "react";
 import { easing } from "maath";
@@ -10,7 +10,11 @@ export const Kamdo = ({ ...props }) => {
   const stripe = useRef();
   const light = useRef();
   const { nodes, materials } = useGLTF("../assets/kamdo.glb");
-
+  const { camera } = useThree();
+  useFrame(() => {
+    //@ts-ignore
+    console.log("camera postion", camera?.position);
+  });
   useFrame((state, delta) => {
     const t = (1 + Math.sin(state.clock.elapsedTime * 2)) / 2;
     stripe.current.color.setRGB(2 + t * 20, 2, 20 + t * 50);
@@ -56,9 +60,8 @@ export const Kamdo = ({ ...props }) => {
       />
       <Html
         // position={[3, 5, 3]}
-        occlude
-        className="w-[900px] -bottom-96 "
-        style={{ transform: "scale(0.7)", opacity: "0.7" }}>
+        className="w-[1000px] -bottom-64 left-20"
+        style={{ transform: "scale(0.65)", opacity: "0.7" }}>
         <Dashboard />
       </Html>
     </group>
