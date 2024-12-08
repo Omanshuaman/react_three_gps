@@ -18,6 +18,9 @@ module.exports = {
       animation: {
         tvOpen: "tvOpen 1s ease-in-out forwards",
       },
+      backgroundImage: {
+        "snowy-gradient": "linear-gradient(to bottom, #f0f8ff, #ffffff)", // Adjust colors for a snowy effect
+      },
     },
   },
   plugins: [],
