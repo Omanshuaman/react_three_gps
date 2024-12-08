@@ -1,17 +1,6 @@
 import React, { useState } from "react";
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-} from "recharts";
 import clsx from "clsx";
-import { useSpring, animated, config } from "@react-spring/web";
-
-const pi = Math.PI;
+import { useNavigate } from "react-router";
 
 const suitData = [
   {
@@ -25,20 +14,9 @@ const suitData = [
   },
 ];
 
-const graphData = [
-  { name: "Nov", temp: -20, windSpeed: 15, humidity: 30 },
-  { name: "Dec", temp: -30, windSpeed: 20, humidity: 35 },
-  { name: "Jan", temp: -25, windSpeed: 18, humidity: 40 },
-];
-
 function Content() {
   return (
-    <div className="flex flex-col h-screen p-4 bg-gray-900 w-full animate-tvOpen">
-      {/* Dashboard Header */}
-      <div className="text-white text-2xl font-bold mb-4">
-        Antarctica Suit Dashboard
-      </div>
-
+    <div className="flex flex-col h-fit p-4 bg-gray-900 w-full animate-tvOpen">
       {/* Suit Cards Section */}
       <div className="flex flex-wrap">
         {suitData.map((suit) => (
@@ -53,11 +31,6 @@ function Content() {
           />
         ))}
       </div>
-
-      {/* Graph Section */}
-      <div className="flex-grow mt-4">
-        <Graph />
-      </div>
     </div>
   );
 }
@@ -70,9 +43,12 @@ function SuitCard({
   status,
   imgId,
 }) {
+  const handleNavigation = () => {
+    window.location.href = "/mountain"; // Navigate to the /mountain page
+  };
   return (
     <div className="w-full p-2">
-      <div className="rounded-lg bg-card flex justify-between p-3 h-32">
+      <div className="rounded-lg bg-card flex justify-between p-3">
         <div>
           <div className="flex items-center">
             <img
@@ -97,30 +73,13 @@ function SuitCard({
           <div className="text-sm text-gray-200">Battery Life</div>
         </div>
       </div>
-    </div>
-  );
-}
-
-function Graph() {
-  return (
-    <div className="flex p-4 h-full flex-col">
-      <div className="flex items-center">
-        <div className="font-bold text-white">Environmental Conditions</div>
-        <div className="flex-grow" />
-        <div className="text-sm text-gray-200">Last 9 Months</div>
+      <div className="mt-3 text-center">
+        <button
+          onClick={handleNavigation}
+          className="text-blue-500 hover:underline font-medium">
+          See More Details
+        </button>
       </div>
-
-      <ResponsiveContainer width="100%" height="100%">
-        <LineChart width={500} height={300} data={graphData}>
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
-          <YAxis />
-          <Tooltip />
-          <Line type="monotone" dataKey="temp" stroke="#8884d8" />
-          <Line type="monotone" dataKey="windSpeed" stroke="#82ca9d" />
-          <Line type="monotone" dataKey="humidity" stroke="#ffc658" />
-        </LineChart>
-      </ResponsiveContainer>
     </div>
   );
 }
@@ -135,15 +94,6 @@ function Icon({ path = "options", className = "w-4 h-4" }) {
   );
 }
 
-function Image({ path = "1", className = "w-4 h-4" }) {
-  return (
-    <img
-      src={`https://assets.codepen.io/3685267/${path}.jpg`}
-      alt=""
-      className={clsx(className, "rounded-full")}
-    />
-  );
-}
 export default function Test() {
   const [showSidebar, onSetShowSidebar] = useState(false);
 

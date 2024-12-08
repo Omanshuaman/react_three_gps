@@ -179,7 +179,7 @@ const Point = ({ pos, name, data, controls }) => {
             distanceFactor={4}
             className="w-[800px]"
             style={{ transform: "scale(0.7)" }}
-            position={[-0.3, 3, 1.5]}>
+            position={[-0.7, 3, 0.6]}>
             <Test />
           </Html>
         )}
