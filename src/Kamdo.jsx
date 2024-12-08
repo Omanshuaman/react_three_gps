@@ -9,7 +9,7 @@ export const Kamdo = ({ ...props }) => {
   const head = useRef();
   const stripe = useRef();
   const light = useRef();
-  const { nodes, materials } = useGLTF("../assets/kamdo.glb");
+  const { nodes, materials } = useGLTF("public/kamdo.glb");
   const { camera } = useThree();
   useFrame(() => {
     //@ts-ignore
@@ -68,4 +68,4 @@ export const Kamdo = ({ ...props }) => {
   );
 };
 
-useGLTF.preload("../assets/kamdo.glb");
+useGLTF.preload("public/kamdo.glb");
