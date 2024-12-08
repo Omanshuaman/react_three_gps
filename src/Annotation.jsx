@@ -5,11 +5,7 @@ import { useFrame, useThree } from "@react-three/fiber";
 
 const Annotation = ({ controls }) => {
   const { camera } = useThree();
-  useFrame(() => {
-    //@ts-ignore
-    console.log("lookat", controls.current.target);
-    console.log("camera postion", camera?.position);
-  });
+
   const carpet = [
     {
       title: "Carpet",

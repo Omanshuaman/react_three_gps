@@ -1,6 +1,7 @@
 import { useFrame } from "@react-three/fiber";
-import { useGLTF } from "@react-three/drei";
+import { Shadow, useGLTF } from "@react-three/drei";
 import { useRef } from "react";
+import { easing } from "maath";
 
 export const Kamdo = ({ ...props }) => {
   const head = useRef();
@@ -8,15 +9,19 @@ export const Kamdo = ({ ...props }) => {
   const light = useRef();
   const { nodes, materials } = useGLTF("../assets/kamdo.glb");
 
-  const handleClick = () => {
-    console.log("Red dot clicked! State is now true.");
-  };
+  useFrame((state, delta) => {
+    const t = (1 + Math.sin(state.clock.elapsedTime * 2)) / 2;
+    stripe.current.color.setRGB(2 + t * 20, 2, 20 + t * 50);
+    easing.dampE(
+      head.current.rotation,
+      [0, state.pointer.x * (state.camera.position.z > 1 ? 1 : -1), 0],
+      0.4,
+      delta
+    );
+    light.current.intensity = 1 + t * 4;
+  });
   return (
-    <group
-      {...props}
-      scale={0.03}
-      rotation={[0, 0, -1.4]}
-      onClick={handleClick}>
+    <group {...props} scale={0.5}>
       <mesh
         castShadow
         receiveShadow
@@ -32,14 +37,21 @@ export const Kamdo = ({ ...props }) => {
         />
         <mesh castShadow receiveShadow geometry={nodes.stripe001.geometry}>
           <meshBasicMaterial ref={stripe} toneMapped={false} />
-          {/* <pointLight
+          <pointLight
             ref={light}
             intensity={1}
             color={[10, 2, 5]}
             distance={2.5}
-          /> */}
+          />
         </mesh>
       </group>
+      <Shadow
+        rotation={[-Math.PI / 2, 0, 0]}
+        scale={1.5}
+        position={[0, 0, 0]}
+        color="black"
+        opacity={1}
+      />
     </group>
   );
 };
