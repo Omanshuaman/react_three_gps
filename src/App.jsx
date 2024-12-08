@@ -4,6 +4,7 @@ import Earth from "./Earth";
 import Test from "./Test";
 import { Routes, Route, Link, BrowserRouter } from "react-router-dom";
 import Mountain from "./Mountain";
+import Dashboard from "./Dashboard";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
 
         <Route path="/test" element={<Test />} />
         <Route path="/mountain" element={<Mountain />} />
+        <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
     </BrowserRouter>
   );

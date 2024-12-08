@@ -1,7 +1,8 @@
 import { useFrame } from "@react-three/fiber";
-import { Shadow, useGLTF } from "@react-three/drei";
+import { Html, Shadow, useGLTF } from "@react-three/drei";
 import { useRef } from "react";
 import { easing } from "maath";
+import Test from "./Test";
 
 export const Kamdo = ({ ...props }) => {
   const head = useRef();
@@ -52,6 +53,13 @@ export const Kamdo = ({ ...props }) => {
         color="black"
         opacity={1}
       />
+      <Html
+        // position={[3, 5, 3]}
+        occlude
+        className="w-[800px] -bottom-96 "
+        style={{ transform: "scale(0.7)", opacity: "0.8" }}>
+        <Test />
+      </Html>
     </group>
   );
 };
