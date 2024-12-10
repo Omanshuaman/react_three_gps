@@ -9,6 +9,8 @@ import {
   BakeShadows,
   OrbitControls,
   Stage,
+  useProgress,
+  Html,
 } from "@react-three/drei";
 import { LayerMaterial, Depth } from "lamina";
 import {
@@ -20,6 +22,22 @@ import {
 } from "@react-three/postprocessing";
 import { Kamdo } from "./Kamdo";
 import { Suspense } from "react";
+function Loader() {
+  const { progress } = useProgress();
+  const roundedProgress = Math.floor(progress);
+  return (
+    <Html center>
+      <div className="flex items-center justify-center bg-gray-900 w-screen h-screen">
+        <img
+          src="../assets/211003_Metakosmos_Logo_HOZ.png"
+          // src="https://images.pexels.com/photos/541484/sun-flower-blossom-bloom-pollen-541484.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+          alt="Loading"
+          className="animate-fade-in-out object-cover"
+        />
+      </div>
+    </Html>
+  );
+}
 const Mountain = () => {
   return (
     <Canvas
@@ -36,7 +54,7 @@ const Mountain = () => {
         opacity={1}
         far={10}
       />
-      <Suspense>
+      <Suspense fallback={<Loader />}>
         <hemisphereLight intensity={0.5} color="white" groundColor="black" />
         <Environment
           files="/snow_field_2k.hdr"
@@ -51,7 +69,7 @@ const Mountain = () => {
         <Selection>
           <EffectComposer disableNormalPass>
             <Bloom luminanceThreshold={2} mipmapBlur />
-                <Outline
+            <Outline
               blur
               visibleEdgeColor="red"
               edgeStrength={100}
@@ -59,10 +77,8 @@ const Mountain = () => {
             />
 
             <ToneMapping />
-
           </EffectComposer>
-                                <Kamdo rotation={[0, Math.PI, 0]} position={[0, 0, -3]} />
-
+          <Kamdo rotation={[0, Math.PI, 0]} position={[0, 0, -3]} />
         </Selection>
       </Suspense>
     </Canvas>

@@ -5,6 +5,7 @@ import TWEEN from "@tweenjs/tween.js";
 import Test from "./Test";
 import { useFrame } from "@react-three/fiber";
 import { Kamdo } from "./Kamdo";
+import Battery from "./Battery";
 
 const data = [
   {
@@ -180,7 +181,7 @@ const Point = ({ pos, name, data, controls }) => {
             className="w-[800px]"
             style={{ transform: "scale(0.7)", opacity: "0.8" }}
             position={[-0.7, 3, 0.6]}>
-            <Test />
+            <Battery />
           </Html>
         )}
       </mesh>
