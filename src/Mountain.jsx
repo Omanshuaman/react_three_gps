@@ -29,7 +29,7 @@ function Loader() {
     <Html center>
       <div className="flex items-center justify-center bg-gray-900 w-screen h-screen">
         <img
-          src="../assets/211003_Metakosmos_Logo_HOZ.png"
+          src="/211003_Metakosmos_Logo_HOZ.png"
           // src="https://images.pexels.com/photos/541484/sun-flower-blossom-bloom-pollen-541484.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
           alt="Loading"
           className="animate-fade-in-out object-cover"
