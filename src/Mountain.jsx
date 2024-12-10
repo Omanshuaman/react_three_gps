@@ -14,6 +14,8 @@ import { LayerMaterial, Depth } from "lamina";
 import {
   Bloom,
   EffectComposer,
+  Outline,
+  Selection,
   ToneMapping,
 } from "@react-three/postprocessing";
 import { Kamdo } from "./Kamdo";
@@ -41,17 +43,27 @@ const Mountain = () => {
           ground={{ height: 6, radius: 40, scale: 40 }}
         />
 
-        <Kamdo rotation={[0, Math.PI, 0]} position={[0, 0, -3]} />
-
         <OrbitControls
           autoRotateSpeed={0.85}
           zoomSpeed={0.75}
           maxPolarAngle={Math.PI / 2.1}
         />
-        <EffectComposer disableNormalPass>
-          <Bloom luminanceThreshold={2} mipmapBlur />
-          <ToneMapping />
-        </EffectComposer>
+        <Selection>
+          <EffectComposer disableNormalPass>
+            <Bloom luminanceThreshold={2} mipmapBlur />
+                <Outline
+              blur
+              visibleEdgeColor="red"
+              edgeStrength={100}
+              width={1000}
+            />
+
+            <ToneMapping />
+
+          </EffectComposer>
+                                <Kamdo rotation={[0, Math.PI, 0]} position={[0, 0, -3]} />
+
+        </Selection>
       </Suspense>
     </Canvas>
   );
