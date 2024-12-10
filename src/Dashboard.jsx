@@ -16,34 +16,35 @@ const map = (value, sMin, sMax, dMin, dMax) => {
 const pi = Math.PI;
 const tau = 2 * pi;
 
-const employeeData = [
+const suitData = [
   {
     id: 1,
-    name: "Esther Howard",
-    position: "Sale's manager USA",
-    transactions: 3490,
+    name: "Arctic Explorer X1",
+    position: "Thermal Survival Suit",
+    temperatureRange: "-70°C to -30°C",
+    performance: 92,
     rise: true,
-    tasksCompleted: 3,
+    missionsCompleted: 3,
     imgId: 0,
   },
-
   {
     id: 2,
-    name: "Eleanor Pena",
-    position: "Sale's manager Europe",
-    transactions: 590,
+    name: "Polar Sentinel A2",
+    position: "Advanced Climate Suit",
+    temperatureRange: "-80°C to -40°C",
+    performance: 85,
     rise: false,
-    tasksCompleted: 5,
+    missionsCompleted: 4,
     imgId: 2,
   },
-
   {
     id: 3,
-    name: "Robert Fox",
-    position: "Sale's manager Asia",
-    transactions: 2600,
+    name: "FrostGuardian Z3",
+    position: "Extreme Cold Suit",
+    temperatureRange: "-90°C to -50°C",
+    performance: 98,
     rise: true,
-    tasksCompleted: 1,
+    missionsCompleted: 2,
     imgId: 3,
   },
 ];
@@ -268,24 +269,26 @@ function Content({ onSidebarHide }) {
   return (
     <div className="flex w-full bg-snowy-gradient ">
       <div className=" h-screen flex-grow overflow-x-hidden overflow-auto flex flex-wrap content-start p-2">
-        {employeeData.map(
+        {suitData.map(
           ({
             id,
             name,
             position,
-            transactions,
+            temperatureRange,
+            performance,
             rise,
-            tasksCompleted,
+            missionsCompleted,
             imgId,
           }) => (
-            <NameCard
+            <SuitCard
               key={id}
               id={id}
               name={name}
               position={position}
-              transactionAmount={transactions}
+              temperatureRange={temperatureRange}
+              performance={performance}
               rise={rise}
-              tasksCompleted={tasksCompleted}
+              missionsCompleted={missionsCompleted}
               imgId={imgId}
             />
           )
@@ -298,7 +301,7 @@ function Content({ onSidebarHide }) {
         </div>
         <div className="w-full p-2 lg:w-1/3">
           <div className="rounded-lg bg-card h-80 bg-slate-100">
-            <TopCountries />
+            <AntarcticSuitRegions />
           </div>
         </div>
 
@@ -322,35 +325,36 @@ function Content({ onSidebarHide }) {
   );
 }
 
-function NameCard({
+function SuitCard({
   name,
   position,
-  transactionAmount,
+  temperatureRange,
+  performance,
   rise,
-  tasksCompleted,
+  missionsCompleted,
   imgId,
 }) {
-  const { transactions, barPlayhead } = useSpring({
-    transactions: transactionAmount,
+  const { performanceValue, barPlayhead } = useSpring({
+    performanceValue: performance,
     barPlayhead: 1,
-    from: { transactions: 0, barPlayhead: 0 },
+    from: { performanceValue: 0, barPlayhead: 0 },
   });
+
   return (
-    <div className="w-full p-2 lg:w-1/3 ">
+    <div className="w-full p-2 lg:w-1/3">
       <div className="rounded-lg bg-card flex justify-between p-3 h-32 bg-slate-100">
         <div className="">
           <div className="flex items-center">
-            <Image path={`mock_faces_${imgId}`} className="w-10 h-10" />
             <div className="ml-2">
               <div className="flex items-center">
                 <div className="mr-2 font-bold text-black">{name}</div>
                 <Icon path="res-react-dash-tick" />
               </div>
-              <div className="text-sm ">{position}</div>
+              <div className="text-sm">{position}</div>
             </div>
           </div>
 
-          <div className="text-sm  mt-2">{`${tasksCompleted} from 5 tasks completed`}</div>
+          <div className="text-sm mt-2">{`Missions: ${missionsCompleted} completed`}</div>
           <svg
             className="w-44 mt-3"
             height="6"
@@ -360,79 +364,97 @@ function NameCard({
             <rect width="200" height="6" rx="3" fill="#2D2D2D" />
             <animated.rect
               width={barPlayhead.interpolate(
-                (i) => i * (tasksCompleted / 5) * 200
+                (i) => i * (missionsCompleted / 5) * 200
               )}
               height="6"
               rx="3"
               fill="url(#paint0_linear)"
             />
-            <rect x="38" width="2" height="6" fill="#171717" />
-            <rect x="78" width="2" height="6" fill="#171717" />
-            <rect x="118" width="2" height="6" fill="#171717" />
-            <rect x="158" width="2" height="6" fill="#171717" />
             <defs>
               <linearGradient id="paint0_linear" x1="0" y1="0" x2="1" y2="0">
-                <stop stopColor="#8E76EF" />
-                <stop offset="1" stopColor="#3912D2" />
+                <stop stopColor="#76E0EF" />
+                <stop offset="1" stopColor="#1253D2" />
               </linearGradient>
             </defs>
           </svg>
         </div>
+
         <div className="flex flex-col items-center">
-          <Icon
-            path={rise ? "res-react-dash-bull" : "res-react-dash-bear"}
-            className="w-8 h-8"
-          />
           <animated.div
             className={clsx(
               rise ? "text-green-500" : "text-red-500",
               "font-bold",
               "text-lg"
             )}>
-            {transactions.interpolate((i) => `$${i.toFixed(2)}`)}
+            {performanceValue.interpolate((i) => `${i.toFixed(2)}%`)}
           </animated.div>
-          <div className="text-sm ">Last 6 month</div>
+          <div className="text-sm">{`Temp Range: ${temperatureRange}`}</div>
         </div>
       </div>
     </div>
   );
 }
+
 function Graph() {
-  const CustomTooltip = () => (
-    <div className="rounded-xl overflow-hidden tooltip-head ">
-      <div className="flex items-center justify-between p-2 bg-gray-200">
-        <div className="">Revenue</div>
-        <Icon path="res-react-dash-options" className="w-2 h-2" />
-      </div>
-      <div className="tooltip-body text-center p-3 bg-gray-100">
-        <div className="text-black font-bold">$1300.50</div>
-        <div className="">Revenue from 230 sales</div>
-      </div>
-    </div>
-  );
+  const CustomTooltip = ({ active, payload }) => {
+    if (active && payload && payload.length) {
+      return (
+        <div className="rounded-xl overflow-hidden tooltip-head">
+          <div className="flex items-center justify-between p-2 bg-gray-200">
+            <div className="">Performance</div>
+            <Icon path="res-react-dash-options" className="w-2 h-2" />
+          </div>
+          <div className="tooltip-body text-center p-3 bg-gray-100">
+            <div className="text-black font-bold">
+              {payload[0].value.toFixed(1)}%
+            </div>
+            <div className="">
+              {`Performance over ${payload[0].payload.missionsCompleted} mission(s)`}
+            </div>
+          </div>
+        </div>
+      );
+    }
+    return null;
+  };
+
+  const suitPerformanceData = [
+    { name: "Jan", temperatureAdaptability: 95, missionsCompleted: 2 },
+    { name: "Feb", temperatureAdaptability: 90, missionsCompleted: 3 },
+    { name: "Mar", temperatureAdaptability: 85, missionsCompleted: 1 },
+    { name: "Apr", temperatureAdaptability: 92, missionsCompleted: 2 },
+    { name: "May", temperatureAdaptability: 88, missionsCompleted: 3 },
+    { name: "Jun", temperatureAdaptability: 94, missionsCompleted: 4 },
+    { name: "Jul", temperatureAdaptability: 97, missionsCompleted: 5 },
+  ];
+
   return (
     <div className="flex p-4 h-full flex-col">
       <div className="">
         <div className="flex items-center">
-          <div className="font-bold text-black">Your Work Summary</div>
+          <div className="font-bold text-black">Antarctic Suit Performance</div>
           <div className="flex-grow" />
 
           <Icon path="res-react-dash-graph-range" className="w-4 h-4" />
-          <div className="ml-2">Last 9 Months</div>
+          <div className="ml-2">Last 7 Months</div>
           <div className="ml-6 w-5 h-5 flex justify-center items-center rounded-full icon-background">
             ?
           </div>
         </div>
-        <div className="font-bold ml-5">Nov - July</div>
+        <div className="font-bold ml-5">Jan - Jul</div>
       </div>
 
       <div className="flex-grow">
         <ResponsiveContainer width="100%" height="100%">
-          <LineChart width={500} height={300} data={graphData}>
+          <LineChart
+            width={500}
+            height={300}
+            data={suitPerformanceData}
+            margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
             <defs>
               <linearGradient id="paint0_linear" x1="0" y1="0" x2="1" y2="0">
-                <stop stopColor="#6B8DE3" />
-                <stop offset="1" stopColor="#7D1C8D" />
+                <stop stopColor="#4FBDBA" />
+                <stop offset="1" stopColor="#0052CC" />
               </linearGradient>
             </defs>
             <CartesianGrid
@@ -446,20 +468,26 @@ function Graph() {
               tickLine={false}
               tickMargin={10}
             />
-            <YAxis axisLine={false} tickLine={false} tickMargin={10} />
+            <YAxis
+              axisLine={false}
+              tickLine={false}
+              tickMargin={10}
+              domain={[80, 100]}
+              unit="%"
+            />
             <Tooltip content={<CustomTooltip />} cursor={false} />
             <Line
               activeDot={false}
               type="monotone"
-              dataKey="expectedRevenue"
-              stroke="#242424"
+              dataKey="missionsCompleted"
+              stroke="#4B5563"
               strokeWidth="3"
               dot={false}
-              strokeDasharray="8 8"
+              strokeDasharray="5 5"
             />
             <Line
               type="monotone"
-              dataKey="revenue"
+              dataKey="temperatureAdaptability"
               stroke="url(#paint0_linear)"
               strokeWidth="4"
               dot={false}
@@ -471,34 +499,74 @@ function Graph() {
   );
 }
 
-function TopCountries() {
+function AntarcticSuitRegions() {
+  const FacilityData = [
+    {
+      id: "1",
+      name: "McMurdo Station",
+      adaptability: 98,
+      missions: 12,
+      improving: true,
+    },
+    {
+      id: "2",
+      name: "Amundsen-Scott South Pole Station",
+      adaptability: 96,
+      missions: 8,
+      improving: false,
+    },
+    {
+      id: "3",
+      name: "Palmer Station",
+      adaptability: 94,
+      missions: 10,
+      improving: true,
+    },
+    {
+      id: "4",
+      name: "Concordia Station",
+      adaptability: 92,
+      missions: 6,
+      improving: false,
+    },
+  ];
+
   return (
     <div className="flex p-4 flex-col h-full">
       <div className="flex justify-between items-center">
-        <div className="text-black font-bold">Top Countries</div>
+        <div className="text-black font-bold">Antarctic Facilities</div>
         <Icon path="res-react-dash-plus" className="w-5 h-5" />
       </div>
-      <div className="">favourites</div>
-      {Countrydata.map(({ name, rise, value, id }) => (
+      <div className="text-gray-500">Suit Performance</div>
+      {FacilityData.map(({ id, name, adaptability, missions, improving }) => (
         <div className="flex items-center mt-3" key={id}>
-          <div className="">{id}</div>
-
-          <Image path={`res-react-dash-flag-${id}`} className="ml-2 w-6 h-6" />
-          <div className="ml-2">{name}</div>
+          <div className="font-bold">{id}</div>
+          <Image
+            path={`res-react-dash-flag-${id}`}
+            alt={name}
+            className="ml-2 w-6 h-6"
+          />
+          <div className="ml-2 font-semibold">{name}</div>
           <div className="flex-grow" />
-          <div className="">{`$${value.toLocaleString()}`}</div>
+          <div className="text-gray-500 ml-4">{`${missions} missions`}</div>
           <Icon
             path={
-              rise ? "res-react-dash-country-up" : "res-react-dash-country-down"
+              improving
+                ? "res-react-dash-country-up"
+                : "res-react-dash-country-down"
             }
-            className="w-4 h-4 mx-3"
+            className={`w-4 h-4 mx-3 ${
+              improving ? "text-green-500" : "text-red-500"
+            }`}
           />
           <Icon path="res-react-dash-options" className="w-2 h-2" />
         </div>
       ))}
       <div className="flex-grow" />
       <div className="flex justify-center">
-        <div className="">Check All</div>
+        <button className="text-blue-600 font-semibold hover:underline">
+          View All Facilities
+        </button>
       </div>
     </div>
   );
