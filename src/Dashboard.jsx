@@ -266,7 +266,7 @@ function MenuItem({ item: { id, title, notifications }, onClick, selected }) {
 }
 function Content({ onSidebarHide }) {
   return (
-    <div className="flex w-full bg-snowy-gradient">
+    <div className="flex w-full bg-snowy-gradient ">
       <div className=" h-screen flex-grow overflow-x-hidden overflow-auto flex flex-wrap content-start p-2">
         {employeeData.map(
           ({
@@ -292,28 +292,28 @@ function Content({ onSidebarHide }) {
         )}
 
         <div className="w-full p-2 lg:w-2/3">
-          <div className="rounded-lg bg-card sm:h-80 h-60">
+          <div className="rounded-lg bg-card sm:h-80 h-60 bg-slate-100">
             <Graph />
           </div>
         </div>
         <div className="w-full p-2 lg:w-1/3">
-          <div className="rounded-lg bg-card h-80">
+          <div className="rounded-lg bg-card h-80 bg-slate-100">
             <TopCountries />
           </div>
         </div>
 
         <div className="w-full p-2 lg:w-1/3">
-          <div className="rounded-lg bg-card h-80">
+          <div className="rounded-lg bg-card h-80 bg-slate-100">
             <Segmentation />
           </div>
         </div>
         <div className="w-full p-2 lg:w-1/3">
-          <div className="rounded-lg bg-card h-80">
+          <div className="rounded-lg bg-card h-80 bg-slate-100">
             <Satisfication />
           </div>
         </div>
         <div className="w-full p-2 lg:w-1/3">
-          <div className="rounded-lg bg-card overflow-hidden h-80">
+          <div className="rounded-lg bg-card overflow-hidden h-80 bg-slate-100">
             <AddComponent />
           </div>
         </div>
@@ -336,8 +336,8 @@ function NameCard({
     from: { transactions: 0, barPlayhead: 0 },
   });
   return (
-    <div className="w-full p-2 lg:w-1/3">
-      <div className="rounded-lg bg-card flex justify-between p-3 h-32">
+    <div className="w-full p-2 lg:w-1/3 ">
+      <div className="rounded-lg bg-card flex justify-between p-3 h-32 bg-slate-100">
         <div className="">
           <div className="flex items-center">
             <Image path={`mock_faces_${imgId}`} className="w-10 h-10" />
@@ -399,12 +399,12 @@ function NameCard({
 }
 function Graph() {
   const CustomTooltip = () => (
-    <div className="rounded-xl overflow-hidden tooltip-head">
-      <div className="flex items-center justify-between p-2">
+    <div className="rounded-xl overflow-hidden tooltip-head ">
+      <div className="flex items-center justify-between p-2 bg-gray-200">
         <div className="">Revenue</div>
         <Icon path="res-react-dash-options" className="w-2 h-2" />
       </div>
-      <div className="tooltip-body text-center p-3">
+      <div className="tooltip-body text-center p-3 bg-gray-100">
         <div className="text-black font-bold">$1300.50</div>
         <div className="">Revenue from 230 sales</div>
       </div>
