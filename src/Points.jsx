@@ -39,7 +39,32 @@ const data = [
       z: 0,
     },
   },
-
+  {
+    lat: -80.8628,
+    lon: 136.0, // Slightly different longitude
+    color: "green",
+    name: "antarctica (new research station)",
+    camPos: {
+      x: 0.3313066157017256,
+      y: -2.4081344780017715,
+      z: -0.11496029189037765,
+    },
+    lookAt: {
+      x: 0.33130668396516944,
+      y: -1.244008249611388e-7,
+      z: -0.11496269914734415,
+    },
+    goback: {
+      x: 0,
+      y: 1.0000000000000004,
+      z: 7.000000000000006,
+    },
+    lookback: {
+      x: 0,
+      y: 0,
+      z: 0,
+    },
+  },
   {
     lat: 28.6139,
     lon: 77.209,
@@ -62,9 +87,15 @@ function calcPosFromLatLonRad(lat, lon) {
 }
 
 export const Points = ({ controls }) => {
+  const [clickedIndex, setClickedIndex] = useState(null);
+
   const positions = useMemo(() => {
     return data.map((point) => calcPosFromLatLonRad(point.lat, point.lon));
   });
+
+  const handlePointClick = (index) => {
+    setClickedIndex((prevIndex) => (prevIndex === index ? null : index));
+  };
 
   return (
     <group>
@@ -77,14 +108,15 @@ export const Points = ({ controls }) => {
             data={data[i]}
             controls={controls}
             color={data.length > 0 && data[i].color}
+            isClicked={clickedIndex === i}
+            onClick={() => handlePointClick(i)}
           />
         ))}
     </group>
   );
 };
 
-const Point = ({ pos, name, data, controls, color }) => {
-  const [clicked, setClicked] = useState(false);
+const Point = ({ pos, name, data, controls, color, isClicked, onClick }) => {
   const { camera } = useThree();
   console.log("positioj", pos, name);
   useFrame(() => {
@@ -94,9 +126,9 @@ const Point = ({ pos, name, data, controls, color }) => {
   });
   const handleClick = () => {
     // Toggle the clicked state
-    setClicked(!clicked);
+    onClick();
 
-    if (!clicked) {
+    if (!isClicked) {
       // Move camera and controls to the clicked point's position and target
       new TWEEN.Tween(controls.current.target)
         .to(
@@ -163,7 +195,7 @@ const Point = ({ pos, name, data, controls, color }) => {
   return (
     <animated.mesh
       position={pos}
-      scale={clicked ? 1.5 : 1}
+      scale={isClicked ? 1.5 : 1}
       onClick={handleClick}>
       <Sphere args={[0.0125, 16, 16]}>
         <animated.meshStandardMaterial
@@ -172,7 +204,7 @@ const Point = ({ pos, name, data, controls, color }) => {
           color={color}
         />
       </Sphere>
-      {clicked && (
+      {isClicked && (
         <Html
           distanceFactor={4}
           className="w-[800px]"
