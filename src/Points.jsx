@@ -2,40 +2,21 @@ import { useMemo, useState } from "react";
 import { Html, Sphere } from "@react-three/drei";
 import { useThree } from "@react-three/fiber";
 import TWEEN from "@tweenjs/tween.js";
-import Test from "./Test";
 import { useFrame } from "@react-three/fiber";
-import { Kamdo } from "./Kamdo";
 import Battery from "./Battery";
+import { useSpring, animated } from "@react-spring/three";
 
 const data = [
   {
-    lat: 30.266666,
-    lon: -97.73333,
-    population: 965872,
-    name: "austin, tx, us",
-  },
-  {
-    lat: 24.555059,
-    lon: -81.779984,
-    population: 24495,
-    name: "key west, florida, us",
-  },
-  {
     lat: 51.5072,
     lon: -0.1276,
-    population: 8982000,
+    color: "green",
     name: "london, uk",
-  },
-  {
-    lat: -33.8688,
-    lon: 151.2093,
-    population: 53123000,
-    name: "sydney, au",
   },
   {
     lat: -82.8628,
     lon: 135.0,
-    population: 1106,
+    color: "red",
     name: "antarctica (research stations)",
     camPos: {
       x: 0.3313066157017256,
@@ -58,6 +39,7 @@ const data = [
       z: 0,
     },
   },
+
   {
     lat: 28.6139,
     lon: 77.209,
@@ -67,7 +49,7 @@ const data = [
 ];
 
 // offset the point to sit more on the surface of the sphere.
-const RADIUS_ADJUSTMENT = 1.05;
+const RADIUS_ADJUSTMENT = 1.07;
 
 // @NOTE: this assumes that the texture's x axis was moved 90 degrees
 function calcPosFromLatLonRad(lat, lon) {
@@ -94,13 +76,14 @@ export const Points = ({ controls }) => {
             name={data.length > 0 && data[i].name}
             data={data[i]}
             controls={controls}
+            color={data.length > 0 && data[i].color}
           />
         ))}
     </group>
   );
 };
 
-const Point = ({ pos, name, data, controls }) => {
+const Point = ({ pos, name, data, controls, color }) => {
   const [clicked, setClicked] = useState(false);
   const { camera } = useThree();
   console.log("positioj", pos, name);
@@ -166,25 +149,38 @@ const Point = ({ pos, name, data, controls }) => {
     }
   };
 
+  const { opacity } = useSpring({
+    loop: true,
+    from: { opacity: 0 },
+    to: async (next) => {
+      while (1) {
+        await next({ opacity: 1 });
+        await next({ opacity: 0 });
+      }
+    },
+    config: { duration: 1000 },
+  });
   return (
-    <group>
-      <mesh position={pos} scale={clicked ? 1.5 : 1} onClick={handleClick}>
-        <Sphere args={[0.0125, 16, 16]} color="red" />
-        <meshStandardMaterial
-          color={0xff0000}
-          emissiveIntensity={5}
-          emissive={0x0000ff}
+    <animated.mesh
+      position={pos}
+      scale={clicked ? 1.5 : 1}
+      onClick={handleClick}>
+      <Sphere args={[0.0125, 16, 16]}>
+        <animated.meshStandardMaterial
+          transparent
+          opacity={opacity}
+          color={color}
         />
-        {clicked && (
-          <Html
-            distanceFactor={4}
-            className="w-[800px]"
-            style={{ transform: "scale(0.7)", opacity: "0.8" }}
-            position={[-0.7, 3, 0.6]}>
-            <Battery />
-          </Html>
-        )}
-      </mesh>
-    </group>
+      </Sphere>
+      {clicked && (
+        <Html
+          distanceFactor={4}
+          className="w-[800px]"
+          style={{ transform: "scale(0.7)", opacity: "0.8" }}
+          position={[-0.7, 3, 0.6]}>
+          <Battery />
+        </Html>
+      )}
+    </animated.mesh>
   );
 };

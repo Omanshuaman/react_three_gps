@@ -1,6 +1,6 @@
 import { useFrame, useThree } from "@react-three/fiber";
 import { Html, Shadow, useGLTF } from "@react-three/drei";
-import { useRef, useState,useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 import { easing } from "maath";
 import {
   Selection,
@@ -23,10 +23,8 @@ export const Kamdo = ({ ...props }) => {
   //   console.log("camera position", camera?.position);
   // });
   useEffect(() => {
-     console.log(hovered)
-
-  }, [hovered])
-  
+    console.log(hovered);
+  }, [hovered]);
 
   useFrame((state, delta) => {
     const t = (1 + Math.sin(state.clock.elapsedTime * 2)) / 2;
@@ -49,7 +47,7 @@ export const Kamdo = ({ ...props }) => {
           geometry={nodes.body001.geometry}
           material={materials.Body}
           onClick={() => hover(true)}
-          onPointerOut={()=> hover(false)}
+          onPointerOut={() => hover(false)}
         />
       </Select>
       <group ref={head}>
