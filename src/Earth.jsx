@@ -84,11 +84,6 @@ const Earth = () => {
           {/* <Annotation controls={ref} /> */}
         </Stage>
         <EffectComposer>
-          <Bloom
-            intensity={1.0}
-            luminanceThreshold={0.9} // luminance threshold. Raise this value to mask out darker elements in the scene.
-            luminanceSmoothing={0.025} // smoothness of the luminance threshold. Range is [0, 1
-          />
           <Noise opacity={0.02} />
           <Vignette eskil={false} offset={0.1} darkness={1.1} />
           <ToneMapping />

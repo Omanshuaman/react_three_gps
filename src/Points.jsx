@@ -1,23 +1,28 @@
 import { useMemo, useState } from "react";
-import { Html, Sphere } from "@react-three/drei";
+import { Html, Sparkles, Sphere } from "@react-three/drei";
 import { useThree } from "@react-three/fiber";
 import TWEEN from "@tweenjs/tween.js";
 import { useFrame } from "@react-three/fiber";
 import Battery from "./Battery";
 import { useSpring, animated } from "@react-spring/three";
+import { EffectComposer, Bloom } from "@react-three/postprocessing";
 
 const data = [
   {
+    id: 1,
     lat: 51.5072,
     lon: -0.1276,
-    color: "green",
     name: "london, uk",
+    batteryCount: 25,
+    color: 25 >= 25 ? "green" : "red",
   },
   {
+    id: 2,
     lat: -82.8628,
     lon: 135.0,
-    color: "red",
     name: "antarctica (research stations)",
+    batteryCount: 90,
+    color: 90 >= 25 ? "green" : "red",
     camPos: {
       x: 0.3313066157017256,
       y: -2.4081344780017715,
@@ -40,10 +45,12 @@ const data = [
     },
   },
   {
+    id: 3,
     lat: -80.8628,
     lon: 136.0, // Slightly different longitude
-    color: "green",
     name: "antarctica (new research station)",
+    batteryCount: 21,
+    color: 21 >= 25 ? "green" : "red",
     camPos: {
       x: 0.3313066157017256,
       y: -2.4081344780017715,
@@ -66,10 +73,13 @@ const data = [
     },
   },
   {
+    id: 4,
     lat: 28.6139,
     lon: 77.209,
-    population: 32000000,
     name: "delhi, india",
+    batteryCount: 24,
+    color: 24 >= 25 ? "green" : "red",
+    population: 32000000,
   },
 ];
 
@@ -110,20 +120,32 @@ export const Points = ({ controls }) => {
             color={data.length > 0 && data[i].color}
             isClicked={clickedIndex === i}
             onClick={() => handlePointClick(i)}
+            id={data[i].id}
+            batteryCount={data[i].batteryCount}
           />
         ))}
     </group>
   );
 };
 
-const Point = ({ pos, name, data, controls, color, isClicked, onClick }) => {
+const Point = ({
+  pos,
+  name,
+  data,
+  controls,
+  color,
+  isClicked,
+  onClick,
+  id,
+  batteryCount,
+}) => {
   const { camera } = useThree();
   console.log("positioj", pos, name);
-  useFrame(() => {
-    //@ts-ignore
-    console.log("lookat", controls.current.target);
-    console.log("camera postion", camera?.position);
-  });
+  // useFrame(() => {
+  //   //@ts-ignore
+  //   console.log("lookat", controls.current.target);
+  //   console.log("camera postion", camera?.position);
+  // });
   const handleClick = () => {
     // Toggle the clicked state
     onClick();
@@ -192,27 +214,31 @@ const Point = ({ pos, name, data, controls, color, isClicked, onClick }) => {
     },
     config: { duration: 1000 },
   });
+  console.log(batteryCount, id);
   return (
-    <animated.mesh
-      position={pos}
-      scale={isClicked ? 1.5 : 1}
-      onClick={handleClick}>
-      <Sphere args={[0.0125, 16, 16]}>
-        <animated.meshStandardMaterial
-          transparent
-          opacity={opacity}
-          color={color}
-        />
-      </Sphere>
-      {isClicked && (
-        <Html
-          distanceFactor={4}
-          className="w-[800px]"
-          style={{ transform: "scale(0.7)", opacity: "0.8" }}
-          position={[-0.7, 3, 0.6]}>
-          <Battery />
-        </Html>
-      )}
-    </animated.mesh>
+    <>
+      <animated.mesh
+        position={pos}
+        scale={isClicked ? 1.5 : 1}
+        onClick={handleClick}>
+        <Sphere args={[0.0125, 16, 16]}>
+          <animated.meshStandardMaterial
+            transparent
+            opacity={opacity}
+            color={color}
+          />
+        </Sphere>
+
+        {isClicked && (
+          <Html
+            distanceFactor={4}
+            className="w-[800px]"
+            style={{ transform: "scale(0.7)", opacity: "0.8" }}
+            position={[-0.7, 3, 0.6]}>
+            <Battery id={id} batteryCount={batteryCount} />
+          </Html>
+        )}
+      </animated.mesh>
+    </>
   );
 };

@@ -32,7 +32,7 @@ export const Globe = ({
     <group {...props}>
       {/* <Annotation controls={controls} /> */}
 
-      <group ref={groupRef} rotation={[0, -Math.PI / 8, 0]}>
+      <group ref={groupRef} rotation={[0, -Math.PI / 8, 0]} scale={1.1}>
         <Earth />
         <Points controls={controls} />
         <Clouds />

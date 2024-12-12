@@ -1,13 +1,25 @@
 import { useFrame, useThree } from "@react-three/fiber";
-import { Html, Shadow, useGLTF } from "@react-three/drei";
+import {
+  Billboard,
+  Html,
+  Shadow,
+  Sparkles,
+  useGLTF,
+  Sphere,
+} from "@react-three/drei";
 import { useRef, useState, useEffect } from "react";
 import { easing } from "maath";
+import * as THREE from "three";
+import { useSpring, animated } from "@react-spring/three";
+
 import {
   Selection,
   Select,
   EffectComposer,
   Outline,
 } from "@react-three/postprocessing";
+import { LayerMaterial, Depth } from "lamina";
+
 import Test from "./Test";
 import Dashboard from "./Dashboard";
 
@@ -40,6 +52,15 @@ export const Kamdo = ({ ...props }) => {
 
   return (
     <group {...props} scale={0.5}>
+      <SphereComp
+        size={0.25}
+        amount={10}
+        color="red"
+        glow="yellow"
+        emissive="red"
+        position={[0, 4.5, 0]}
+      />
+
       <Select enabled={hovered}>
         <mesh
           castShadow
@@ -87,4 +108,99 @@ export const Kamdo = ({ ...props }) => {
   );
 };
 
+const SphereComp = ({
+  size = 1,
+  amount = 50,
+  color,
+  emissive,
+  glow,
+  ...props
+}) => {
+  const { opacity } = useSpring({
+    loop: true,
+    from: { opacity: 0 },
+    to: async (next) => {
+      while (1) {
+        await next({ opacity: 1 });
+        await next({ opacity: 0 });
+      }
+    },
+    config: { duration: 1000 },
+  });
+
+  return (
+    <animated.mesh {...props}>
+      <Sphere args={[size, 64, 64]}>
+        <animated.meshStandardMaterial
+          roughness={0}
+          color={color}
+          opacity={opacity}
+          emissive={emissive || color}
+          envMapIntensity={0.2}
+          transparent
+        />
+      </Sphere>
+
+      <Glow scale={size * 1.2} near={-25} color={glow || emissive || color} />
+      <Sparkles
+        count={amount}
+        scale={size * 2}
+        size={1}
+        speed={0.4}
+        color="yellow"
+      />
+    </animated.mesh>
+  );
+};
+const Glow = ({ color, scale = 0.5, near = -2, far = 1.4 }) => (
+  <Billboard>
+    <mesh>
+      <circleGeometry args={[2 * scale, 16]} />
+      <LayerMaterial
+        transparent
+        depthWrite={false}
+        blending={THREE.CustomBlending}
+        blendEquation={THREE.AddEquation}
+        blendSrc={THREE.SrcAlphaFactor}
+        blendDst={THREE.DstAlphaFactor}>
+        <Depth
+          colorA={color}
+          colorB="black"
+          alpha={1}
+          mode="normal"
+          near={near * scale}
+          far={far * scale}
+          origin={[0, 0, 0]}
+        />
+        <Depth
+          colorA={color}
+          colorB="black"
+          alpha={0.5}
+          mode="add"
+          near={-40 * scale}
+          far={far * 1.2 * scale}
+          origin={[0, 0, 0]}
+        />
+        <Depth
+          colorA={color}
+          colorB="black"
+          alpha={1}
+          mode="add"
+          near={-15 * scale}
+          far={far * 0.7 * scale}
+          origin={[0, 0, 0]}
+        />
+        <Depth
+          colorA={color}
+          colorB="black"
+          alpha={1}
+          mode="add"
+          near={-10 * scale}
+          far={far * 0.68 * scale}
+          origin={[0, 0, 0]}
+        />
+      </LayerMaterial>
+    </mesh>
+  </Billboard>
+);
 useGLTF.preload("/kamdo.glb");

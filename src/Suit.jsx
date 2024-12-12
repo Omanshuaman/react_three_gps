@@ -38,7 +38,7 @@ function Loader() {
     </Html>
   );
 }
-const Mountain = () => {
+const Suit = () => {
   return (
     <Canvas
       camera={{
@@ -85,7 +85,7 @@ const Mountain = () => {
   );
 };
 
-export default Mountain;
+export default Suit;
 
 const Sphere = ({
   size = 1,
@@ -105,13 +105,6 @@ const Sphere = ({
     />
     <Glow scale={size * 1.2} near={-25} color={glow || emissive || color} />
     <Sparkles count={amount} scale={size * 2} size={6} speed={0.4} />
-    <Shadow
-      rotation={[-Math.PI / 2, 0, 0]}
-      scale={size * 1.5}
-      position={[0, -size, 0]}
-      color="black"
-      opacity={1}
-    />
   </mesh>
 );
 
