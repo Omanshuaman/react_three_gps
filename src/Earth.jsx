@@ -1,10 +1,8 @@
 import {
-  Environment,
   OrbitControls,
   Stars,
   ContactShadows,
   Stage,
-  TrackballControls,
   useProgress,
   Html,
 } from "@react-three/drei";
@@ -18,9 +16,9 @@ import {
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Suspense, useRef } from "react";
 import TWEEN from "@tweenjs/tween.js";
+import { Stars3d } from "./Stars3d";
 
 import { Globe } from "./globe";
-import Annotation from "./Annotation";
 function Tween() {
   useFrame(() => {
     TWEEN.update();
@@ -81,10 +79,16 @@ const Earth = () => {
           shadows={{ type: "accumulative", bias: -0.001, intensity: Math.PI }}
           adjustCamera={false}>
           <Globe controls={ref}></Globe>
+          <Stars3d />
+
           {/* <Annotation controls={ref} /> */}
         </Stage>
         <EffectComposer>
-          <Bloom luminanceThreshold={0} luminanceSmoothing={0.5} height={100} />
+          <Bloom
+            intensity={1.0}
+            luminanceThreshold={0.9} // luminance threshold. Raise this value to mask out darker elements in the scene.
+            luminanceSmoothing={0.025} // smoothness of the luminance threshold. Range is [0, 1
+          />
           <Noise opacity={0.02} />
           <Vignette eskil={false} offset={0.1} darkness={1.1} />
           <ToneMapping />
