@@ -131,8 +131,8 @@ function Sidebar({ onSidebarHide, showSidebar }) {
           <div className="bg-sidebar-card-top rounded-xl w-full h-full flex items-center justify-start sm:justify-center xl:justify-start px-3 sm:px-0 xl:px-3">
             <Icon path="res-react-dash-sidebar-card" className="w-9 h-9 " />
             <div className="block sm:hidden xl:block ml-3">
-              <div className="text-sm font-bold text-white">Sales House</div>
-              <div className="text-sm">General Item</div>
+              <div className="text-xs font-bold text-white">Sales House</div>
+              <div className="text-xs">General Item</div>
             </div>
             <div className="block sm:hidden xl:block flex-grow" />
             <Icon
@@ -169,7 +169,7 @@ function Sidebar({ onSidebarHide, showSidebar }) {
                 "url('https://assets.codepen.io/3685267/res-react-dash-usage-card.svg')",
             }}>
             <div className="block sm:hidden xl:block pt-3">
-              <div className="font-bold text-gray-700 text-sm">Used Space</div>
+              <div className="font-bold text-gray-700 text-xs">Used Space</div>
               <div className="text-gray-500 text-xs">
                 Admin updated 09:12 am November 08,2020
               </div>
@@ -259,7 +259,7 @@ function MenuItem({ item: { id, title, notifications }, onClick, selected }) {
       <div className="block sm:hidden xl:block flex-grow" />
       {notifications && (
         <div className="flex sm:hidden xl:flex bg-pink-600  w-5 h-5 flex items-center justify-center rounded-full mr-2">
-          <div className="text-white text-sm">{notifications}</div>
+          <div className="text-white text-xs">{notifications}</div>
         </div>
       )}
     </div>
@@ -366,7 +366,7 @@ function SuitCard({
             </div>
           </div>
 
-          <div className="text-sm mt-2 text-[12px]">{`Missions: ${missionsCompleted} completed`}</div>
+          <div className="text-xs mt-2 text-[12px]">{`Missions: ${missionsCompleted} completed`}</div>
           <svg
             className="w-44 mt-3"
             height="6"
@@ -548,7 +548,7 @@ function AntarcticSuitRegions() {
   ];
 
   return (
-    <div className="flex p-6 flex-col h-full relative bg-[#171717] text-gray-100 rounded-2xl text-sm">
+    <div className="flex p-6 flex-col h-full relative bg-[#171717] text-gray-100 rounded-2xl text-xs">
       <div className="absolute inset-0 flex justify-between items-start p-0">
         {/* Top Left Corner */}
         <span className="w-20 h-20 border-t-4 border-l-4  border-[#00436a] rounded-tl-2xl"></span>
@@ -597,7 +597,7 @@ function AntarcticSuitRegions() {
 
 function Segmentation() {
   return (
-    <div className="p-6 h-full relative bg-[#171717] text-gray-100 rounded-2xl text-sm">
+    <div className="p-6 h-full relative bg-[#171717] text-gray-100 rounded-2xl text-xs">
       <div className="absolute inset-0 flex justify-between items-start p-0">
         {/* Top Left Corner */}
         <span className="w-20 h-20 border-t-4 border-l-4  border-[#00436a] rounded-tl-2xl"></span>
@@ -664,7 +664,7 @@ function Satisfication() {
     config: config.molasses,
   });
   return (
-    <div className="p-6 h-full relative bg-[#171717] text-gray-100 rounded-2xl text-sm">
+    <div className="p-6 h-full relative bg-[#171717] text-gray-100 rounded-2xl text-xs">
       <div className="absolute inset-0 flex justify-between items-start p-0">
         {/* Top Left Corner */}
         <span className="w-20 h-20 border-t-4 border-l-4  border-[#00436a] rounded-tl-2xl"></span>
@@ -886,7 +886,7 @@ function AddComponent() {
       </div>
       <div className="w-full h-20 add-component-head" />
       <div
-        className="flex flex-col items-center text-sm"
+        className="flex flex-col items-center text-xs"
         style={{
           transform: "translate(0, -40px)",
         }}>

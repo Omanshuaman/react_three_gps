@@ -66,7 +66,7 @@ export function Astrowalk(props) {
         <Html
           className="w-[1100px] -bottom-64 left-0"
           style={{
-            transform: "scale(0.65)",
+            transform: "scale(0.7)",
             opacity: "0.8",
           }}>
           <Dashboard />
