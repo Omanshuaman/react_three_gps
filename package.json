@@ -19,6 +19,7 @@
     "@react-three/postprocessing": "^2.14.9",
     "@tweenjs/tween.js": "^20.0.3",
     "clsx": "^2.1.1",
+    "gltfjsx": "^6.5.3",
     "lamina": "^1.1.23",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

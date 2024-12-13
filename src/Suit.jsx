@@ -11,6 +11,7 @@ import {
   Stage,
   useProgress,
   Html,
+  Plane,
 } from "@react-three/drei";
 import { LayerMaterial, Depth } from "lamina";
 import {
@@ -22,6 +23,8 @@ import {
 } from "@react-three/postprocessing";
 import { Kamdo } from "./Kamdo";
 import { Suspense } from "react";
+import { Astrowalk } from "./Astrowalk";
+import { Astronaut } from "./Astronaut";
 function Loader() {
   const { progress } = useProgress();
   const roundedProgress = Math.floor(progress);
@@ -44,16 +47,21 @@ const Suit = () => {
       camera={{
         position: [-11.78464723440229, 0.8967611230370984, 2.077957903545101],
         fov: 30,
-      }}>
-      <ContactShadows
-        resolution={1024}
-        frames={1}
-        position={[0, -1.16, 0]}
-        scale={10}
-        blur={3}
-        opacity={1}
-        far={10}
+      }}
+      shadows>
+      <directionalLight
+        position={[-5, 5, 5]}
+        castShadow
+        shadow-mapSize-width={1024}
+        shadow-mapSize-height={1024}
+        shadow-camera-far={50}
+        shadow-camera-left={-10}
+        shadow-camera-right={10}
+        shadow-camera-top={10}
+        shadow-camera-bottom={-10}
+        intensity={1}
       />
+
       <Suspense fallback={<Loader />}>
         <hemisphereLight intensity={0.5} color="white" groundColor="black" />
         <Environment
@@ -66,20 +74,23 @@ const Suit = () => {
           zoomSpeed={0.75}
           maxPolarAngle={Math.PI / 2.1}
         />
-        <Selection>
-          <EffectComposer disableNormalPass>
-            <Bloom luminanceThreshold={2} mipmapBlur />
-            <Outline
-              blur
-              visibleEdgeColor="red"
-              edgeStrength={100}
-              width={1000}
-            />
-
-            <ToneMapping />
-          </EffectComposer>
+        <group position={[0, 0, 0]}>
+          {/* <Astrowalk /> */}
+          {/* <Astronaut /> */}
           <Kamdo rotation={[0, Math.PI, 0]} position={[0, 0, -3]} />
-        </Selection>
+        </group>
+        <mesh
+          rotation={[-0.5 * Math.PI, 0, 0]}
+          position={[0, 0, 0]}
+          receiveShadow>
+          <planeGeometry args={[10, 10, 1, 1]} />
+          <shadowMaterial transparent opacity={0.3} />
+        </mesh>
+        <EffectComposer disableNormalPass>
+          <Bloom luminanceThreshold={2} mipmapBlur />
+
+          <ToneMapping />
+        </EffectComposer>
       </Suspense>
     </Canvas>
   );

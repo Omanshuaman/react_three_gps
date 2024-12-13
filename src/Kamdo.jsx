@@ -55,9 +55,9 @@ export const Kamdo = ({ ...props }) => {
       <SphereComp
         size={0.25}
         amount={10}
-        color="red"
+        color="#ff0000" // Darker red color
         glow="yellow"
-        emissive="red"
+        emissive="#ff0000" // Darker red emissive
         position={[0, 4.5, 0]}
       />
 
@@ -122,7 +122,7 @@ const SphereComp = ({
     to: async (next) => {
       while (1) {
         await next({ opacity: 1 });
-        await next({ opacity: 0 });
+        await next({ opacity: 0.4 });
       }
     },
     config: { duration: 1000 },
