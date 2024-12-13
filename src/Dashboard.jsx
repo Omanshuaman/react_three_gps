@@ -268,7 +268,7 @@ function MenuItem({ item: { id, title, notifications }, onClick, selected }) {
 function Content({ onSidebarHide }) {
   return (
     <div className="flex w-full bg-[#1e1e1e] ">
-      <div className=" h-screen flex-grow overflow-x-hidden overflow-auto flex flex-wrap content-start p-2">
+      <div className=" h-screen flex-grow overflow-x-hidden overflow-auto flex flex-wrap content-start p-2 ">
         {suitData.map(
           ({
             id,
@@ -341,7 +341,7 @@ function SuitCard({
   });
 
   return (
-    <div className="w-full p-2 lg:w-1/3 ">
+    <div className="w-full p-2 lg:w-1/3">
       <div className="flex justify-between p-4 h-32 relative bg-[#171717] text-gray-100 rounded-2xl">
         <div className="absolute inset-0 flex justify-between items-start p-0">
           {/* Top Left Corner */}
@@ -362,11 +362,11 @@ function SuitCard({
                 <div className="mr-2 font-bold text-white">{name}</div>
                 <Icon path="res-react-dash-tick" />
               </div>
-              <div className="text-sm">{position}</div>
+              <div className="text-xs">{position}</div>
             </div>
           </div>
 
-          <div className="text-sm mt-2">{`Missions: ${missionsCompleted} completed`}</div>
+          <div className="text-sm mt-2 text-[12px]">{`Missions: ${missionsCompleted} completed`}</div>
           <svg
             className="w-44 mt-3"
             height="6"
@@ -400,7 +400,6 @@ function SuitCard({
             )}>
             {performanceValue.interpolate((i) => `${i.toFixed(2)}%`)}
           </animated.div>
-          <div className="text-sm">{`Temp Range: ${temperatureRange}`}</div>
         </div>
       </div>
     </div>
@@ -441,7 +440,7 @@ function Graph() {
   ];
 
   return (
-    <div className="flex p-6 h-full flex-col relative bg-[#171717] text-gray-100 rounded-2xl">
+    <div className="flex p-6 h-full flex-col relative bg-[#171717] text-gray-100 rounded-2xl text-xs">
       <div className="absolute inset-0 flex justify-between items-start p-0">
         {/* Top Left Corner */}
         <span className="w-20 h-20 border-t-4 border-l-4  border-[#00436a] rounded-tl-2xl"></span>
@@ -549,7 +548,7 @@ function AntarcticSuitRegions() {
   ];
 
   return (
-    <div className="flex p-6 flex-col h-full relative bg-[#171717] text-gray-100 rounded-2xl">
+    <div className="flex p-6 flex-col h-full relative bg-[#171717] text-gray-100 rounded-2xl text-sm">
       <div className="absolute inset-0 flex justify-between items-start p-0">
         {/* Top Left Corner */}
         <span className="w-20 h-20 border-t-4 border-l-4  border-[#00436a] rounded-tl-2xl"></span>
@@ -598,7 +597,7 @@ function AntarcticSuitRegions() {
 
 function Segmentation() {
   return (
-    <div className="p-6 h-full relative bg-[#171717] text-gray-100 rounded-2xl">
+    <div className="p-6 h-full relative bg-[#171717] text-gray-100 rounded-2xl text-sm">
       <div className="absolute inset-0 flex justify-between items-start p-0">
         {/* Top Left Corner */}
         <span className="w-20 h-20 border-t-4 border-l-4  border-[#00436a] rounded-tl-2xl"></span>
@@ -665,7 +664,7 @@ function Satisfication() {
     config: config.molasses,
   });
   return (
-    <div className="p-6 h-full relative bg-[#171717] text-gray-100 rounded-2xl">
+    <div className="p-6 h-full relative bg-[#171717] text-gray-100 rounded-2xl text-sm">
       <div className="absolute inset-0 flex justify-between items-start p-0">
         {/* Top Left Corner */}
         <span className="w-20 h-20 border-t-4 border-l-4  border-[#00436a] rounded-tl-2xl"></span>
@@ -887,7 +886,7 @@ function AddComponent() {
       </div>
       <div className="w-full h-20 add-component-head" />
       <div
-        className="flex flex-col items-center"
+        className="flex flex-col items-center text-sm"
         style={{
           transform: "translate(0, -40px)",
         }}>

@@ -13,6 +13,8 @@ import {
   Html,
   Plane,
 } from "@react-three/drei";
+import { useModel } from "./contexts/ModelContext";
+
 import { LayerMaterial, Depth } from "lamina";
 import {
   Bloom,
@@ -42,6 +44,8 @@ function Loader() {
   );
 }
 const Suit = () => {
+  const { isModelOpen, toggleModel } = useModel();
+  console.log("isModelOpen", isModelOpen);
   return (
     <Canvas
       camera={{

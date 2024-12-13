@@ -14,11 +14,14 @@ import { LayerMaterial, Depth } from "lamina";
 import { useSpring, animated } from "@react-spring/three";
 import { useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
+import { useModel } from "./contexts/ModelContext";
 
 export function Astrowalk(props) {
   const group = useRef();
   const { nodes, materials, animations } = useGLTF("/Astrowalk.glb");
   const { actions } = useAnimations(animations, group);
+  const { isModelOpen, toggleModel } = useModel();
+  console.log("isModelOpen", isModelOpen);
   useEffect(() => {
     const action = actions["Walk"];
     if (action) {
@@ -61,7 +64,7 @@ export function Astrowalk(props) {
           </group>
         </group>
         <Html
-          className="w-[1000px] -bottom-64 left-20"
+          className="w-[1100px] -bottom-64 left-0"
           style={{
             transform: "scale(0.65)",
             opacity: "0.8",
