@@ -115,7 +115,7 @@ function Sidebar({ onSidebarHide, showSidebar }) {
       <div className="flex-shrink-0 overflow-hidden p-2">
         <div className="flex items-center h-full sm:justify-center xl:justify-start p-2 sidebar-separator-top">
           <IconButton icon="res-react-dash-logo" className="w-10 h-10" />
-          <div className="block sm:hidden xl:block ml-2 font-bold text-xl text-black">
+          <div className="block sm:hidden xl:block ml-2 font-bold text-xl text-white">
             React
           </div>
           <div className="flex-grow sm:hidden xl:block" />
@@ -131,7 +131,7 @@ function Sidebar({ onSidebarHide, showSidebar }) {
           <div className="bg-sidebar-card-top rounded-xl w-full h-full flex items-center justify-start sm:justify-center xl:justify-start px-3 sm:px-0 xl:px-3">
             <Icon path="res-react-dash-sidebar-card" className="w-9 h-9 " />
             <div className="block sm:hidden xl:block ml-3">
-              <div className="text-sm font-bold text-black">Sales House</div>
+              <div className="text-sm font-bold text-white">Sales House</div>
               <div className="text-sm">General Item</div>
             </div>
             <div className="block sm:hidden xl:block flex-grow" />
@@ -259,7 +259,7 @@ function MenuItem({ item: { id, title, notifications }, onClick, selected }) {
       <div className="block sm:hidden xl:block flex-grow" />
       {notifications && (
         <div className="flex sm:hidden xl:flex bg-pink-600  w-5 h-5 flex items-center justify-center rounded-full mr-2">
-          <div className="text-black text-sm">{notifications}</div>
+          <div className="text-white text-sm">{notifications}</div>
         </div>
       )}
     </div>
@@ -267,7 +267,7 @@ function MenuItem({ item: { id, title, notifications }, onClick, selected }) {
 }
 function Content({ onSidebarHide }) {
   return (
-    <div className="flex w-full bg-snowy-gradient ">
+    <div className="flex w-full bg-[#1e1e1e] ">
       <div className=" h-screen flex-grow overflow-x-hidden overflow-auto flex flex-wrap content-start p-2">
         {suitData.map(
           ({
@@ -295,28 +295,28 @@ function Content({ onSidebarHide }) {
         )}
 
         <div className="w-full p-2 lg:w-2/3">
-          <div className="rounded-lg bg-card sm:h-80 h-60 bg-slate-100">
+          <div className="rounded-lg bg-card sm:h-80 h-60">
             <Graph />
           </div>
         </div>
         <div className="w-full p-2 lg:w-1/3">
-          <div className="rounded-lg bg-card h-80 bg-slate-100">
+          <div className="rounded-lg bg-card h-80">
             <AntarcticSuitRegions />
           </div>
         </div>
 
         <div className="w-full p-2 lg:w-1/3">
-          <div className="rounded-lg bg-card h-80 bg-slate-100">
+          <div className="rounded-lg bg-card h-80">
             <Segmentation />
           </div>
         </div>
         <div className="w-full p-2 lg:w-1/3">
-          <div className="rounded-lg bg-card h-80 bg-slate-100">
+          <div className="rounded-lg bg-card h-80">
             <Satisfication />
           </div>
         </div>
         <div className="w-full p-2 lg:w-1/3">
-          <div className="rounded-lg bg-card overflow-hidden h-80 bg-slate-100">
+          <div className="rounded-lg bg-card overflow-hidden h-80">
             <AddComponent />
           </div>
         </div>
@@ -341,13 +341,25 @@ function SuitCard({
   });
 
   return (
-    <div className="w-full p-2 lg:w-1/3">
-      <div className="rounded-lg bg-card flex justify-between p-3 h-32 bg-slate-100">
+    <div className="w-full p-2 lg:w-1/3 ">
+      <div className="flex justify-between p-4 h-32 relative bg-[#171717] text-gray-100 rounded-2xl">
+        <div className="absolute inset-0 flex justify-between items-start p-0">
+          {/* Top Left Corner */}
+          <span className="w-10 h-10 border-t-4 border-l-4  border-[#00436a] rounded-tl-2xl"></span>
+          {/* Top Right Corner */}
+          <span className="w-10 h-10 border-t-4 border-r-4  border-[#00436a] rounded-tr-2xl"></span>
+        </div>
+        <div className="absolute inset-0 flex justify-between items-end">
+          {/* Bottom Left Corner */}
+          <span className="w-10 h-10 border-b-4 border-l-4 border-[#00436a] rounded-bl-2xl"></span>
+          {/* Bottom Right Corner */}
+          <span className="w-10 h-10 border-b-4 border-r-4 border-[#00436a] rounded-br-2xl"></span>
+        </div>
         <div className="">
           <div className="flex items-center">
             <div className="ml-2">
               <div className="flex items-center">
-                <div className="mr-2 font-bold text-black">{name}</div>
+                <div className="mr-2 font-bold text-white">{name}</div>
                 <Icon path="res-react-dash-tick" />
               </div>
               <div className="text-sm">{position}</div>
@@ -400,12 +412,12 @@ function Graph() {
     if (active && payload && payload.length) {
       return (
         <div className="rounded-xl overflow-hidden tooltip-head">
-          <div className="flex items-center justify-between p-2 bg-gray-200">
+          <div className="flex items-center justify-between p-2 bg-[#343333]">
             <div className="">Performance</div>
             <Icon path="res-react-dash-options" className="w-2 h-2" />
           </div>
-          <div className="tooltip-body text-center p-3 bg-gray-100">
-            <div className="text-black font-bold">
+          <div className="tooltip-body text-center p-3 bg-[#1e1e1e]">
+            <div className="text-white font-bold">
               {payload[0].value.toFixed(1)}%
             </div>
             <div className="">
@@ -429,10 +441,22 @@ function Graph() {
   ];
 
   return (
-    <div className="flex p-4 h-full flex-col">
+    <div className="flex p-6 h-full flex-col relative bg-[#171717] text-gray-100 rounded-2xl">
+      <div className="absolute inset-0 flex justify-between items-start p-0">
+        {/* Top Left Corner */}
+        <span className="w-20 h-20 border-t-4 border-l-4  border-[#00436a] rounded-tl-2xl"></span>
+        {/* Top Right Corner */}
+        <span className="w-20 h-20 border-t-4 border-r-4  border-[#00436a] rounded-tr-2xl"></span>
+      </div>
+      <div className="absolute inset-0 flex justify-between items-end">
+        {/* Bottom Left Corner */}
+        <span className="w-20 h-20 border-b-4 border-l-4 border-[#00436a] rounded-bl-2xl"></span>
+        {/* Bottom Right Corner */}
+        <span className="w-20 h-20 border-b-4 border-r-4 border-[#00436a] rounded-br-2xl"></span>
+      </div>
       <div className="">
         <div className="flex items-center">
-          <div className="font-bold text-black">Antarctic Suit Performance</div>
+          <div className="font-bold text-white">Antarctic Suit Performance</div>
           <div className="flex-grow" />
 
           <Icon path="res-react-dash-graph-range" className="w-4 h-4" />
@@ -522,19 +546,24 @@ function AntarcticSuitRegions() {
       missions: 10,
       improving: true,
     },
-    {
-      id: "4",
-      name: "Concordia Station",
-      adaptability: 92,
-      missions: 6,
-      improving: false,
-    },
   ];
 
   return (
-    <div className="flex p-4 flex-col h-full">
+    <div className="flex p-6 flex-col h-full relative bg-[#171717] text-gray-100 rounded-2xl">
+      <div className="absolute inset-0 flex justify-between items-start p-0">
+        {/* Top Left Corner */}
+        <span className="w-20 h-20 border-t-4 border-l-4  border-[#00436a] rounded-tl-2xl"></span>
+        {/* Top Right Corner */}
+        <span className="w-20 h-20 border-t-4 border-r-4  border-[#00436a] rounded-tr-2xl"></span>
+      </div>
+      <div className="absolute inset-0 flex justify-between items-end">
+        {/* Bottom Left Corner */}
+        <span className="w-20 h-20 border-b-4 border-l-4 border-[#00436a] rounded-bl-2xl"></span>
+        {/* Bottom Right Corner */}
+        <span className="w-20 h-20 border-b-4 border-r-4 border-[#00436a] rounded-br-2xl"></span>
+      </div>
       <div className="flex justify-between items-center">
-        <div className="text-black font-bold">Antarctic Facilities</div>
+        <div className="text-white font-bold">Antarctic Facilities</div>
         <Icon path="res-react-dash-plus" className="w-5 h-5" />
       </div>
       <div className="text-gray-500">Suit Performance</div>
@@ -563,20 +592,27 @@ function AntarcticSuitRegions() {
         </div>
       ))}
       <div className="flex-grow" />
-      <div className="flex justify-center">
-        <button className="text-blue-600 font-semibold hover:underline">
-          View All Facilities
-        </button>
-      </div>
     </div>
   );
 }
 
 function Segmentation() {
   return (
-    <div className="p-4 h-full">
+    <div className="p-6 h-full relative bg-[#171717] text-gray-100 rounded-2xl">
+      <div className="absolute inset-0 flex justify-between items-start p-0">
+        {/* Top Left Corner */}
+        <span className="w-20 h-20 border-t-4 border-l-4  border-[#00436a] rounded-tl-2xl"></span>
+        {/* Top Right Corner */}
+        <span className="w-20 h-20 border-t-4 border-r-4  border-[#00436a] rounded-tr-2xl"></span>
+      </div>
+      <div className="absolute inset-0 flex justify-between items-end">
+        {/* Bottom Left Corner */}
+        <span className="w-20 h-20 border-b-4 border-l-4 border-[#00436a] rounded-bl-2xl"></span>
+        {/* Bottom Right Corner */}
+        <span className="w-20 h-20 border-b-4 border-r-4 border-[#00436a] rounded-br-2xl"></span>
+      </div>
       <div className="flex justify-between items-center">
-        <div className="text-black font-bold">Segmentation</div>
+        <div className="text-white font-bold">Segmentation</div>
 
         <Icon path="res-react-dash-options" className="w-2 h-2" />
       </div>
@@ -629,9 +665,21 @@ function Satisfication() {
     config: config.molasses,
   });
   return (
-    <div className="p-4 h-full">
+    <div className="p-6 h-full relative bg-[#171717] text-gray-100 rounded-2xl">
+      <div className="absolute inset-0 flex justify-between items-start p-0">
+        {/* Top Left Corner */}
+        <span className="w-20 h-20 border-t-4 border-l-4  border-[#00436a] rounded-tl-2xl"></span>
+        {/* Top Right Corner */}
+        <span className="w-20 h-20 border-t-4 border-r-4  border-[#00436a] rounded-tr-2xl"></span>
+      </div>
+      <div className="absolute inset-0 flex justify-between items-end">
+        {/* Bottom Left Corner */}
+        <span className="w-20 h-20 border-b-4 border-l-4 border-[#00436a] rounded-bl-2xl"></span>
+        {/* Bottom Right Corner */}
+        <span className="w-20 h-20 border-b-4 border-r-4 border-[#00436a] rounded-br-2xl"></span>
+      </div>
       <div className="flex justify-between items-center">
-        <div className="text-black font-bold">Satisfication</div>
+        <div className="text-white font-bold">Satisfication</div>
         <Icon path="res-react-dash-options" className="w-2 h-2" />
       </div>
       <div className="mt-3">From all projects</div>
@@ -823,7 +871,20 @@ function Satisfication() {
 
 function AddComponent() {
   return (
-    <div>
+    <div className="relative bg-[#171717] text-gray-100 rounded-2xl">
+      {/* Blue Corners */}
+      <div className="absolute inset-0 flex justify-between items-start p-0">
+        {/* Top Left Corner */}
+        <span className="w-20 h-20 border-t-4 border-l-4  border-[#00436a] rounded-tl-2xl"></span>
+        {/* Top Right Corner */}
+        <span className="w-20 h-20 border-t-4 border-r-4  border-[#00436a] rounded-tr-2xl"></span>
+      </div>
+      <div className="absolute inset-0 flex justify-between items-end">
+        {/* Bottom Left Corner */}
+        <span className="w-20 h-20 border-b-4 border-l-4 border-[#00436a] rounded-bl-2xl"></span>
+        {/* Bottom Right Corner */}
+        <span className="w-20 h-20 border-b-4 border-r-4 border-[#00436a] rounded-br-2xl"></span>
+      </div>
       <div className="w-full h-20 add-component-head" />
       <div
         className="flex flex-col items-center"
@@ -844,7 +905,7 @@ function AddComponent() {
             className="w-full h-full"
           />
         </div>
-        <div className="text-black font-bold mt-3">
+        <div className="text-white font-bold mt-3">
           No Components Created Yet
         </div>
         <div className="mt-2">Simply create your first component</div>
@@ -874,72 +935,6 @@ function AddComponent() {
     </div>
   );
 }
-// function AddComponent() {
-//   return (
-//     <div className="relative bg-black text-gray-100 rounded-2xl">
-//       {/* Blue Corners */}
-//       <div className="absolute inset-0 flex justify-between items-start p-0">
-//         {/* Top Left Corner */}
-//         <span className="w-20 h-20 border-t-[6px] border-l-[6px] border-blue-500 rounded-tl-2xl"></span>
-//         {/* Top Right Corner */}
-//         <span className="w-20 h-20 border-t-[6px] border-r-[6px] border-blue-500 rounded-tr-2xl"></span>
-//       </div>
-//       <div className="absolute inset-0 flex justify-between items-end">
-//         {/* Bottom Left Corner */}
-//         <span className="w-20 h-20 border-b-4 border-l-4 border-blue-500 rounded-bl-2xl"></span>
-//         {/* Bottom Right Corner */}
-//         <span className="w-20 h-20 border-b-4 border-r-4 border-blue-500 rounded-br-2xl"></span>
-//       </div>
-//       <div className="w-full h-20 add-component-head" />
-//       <div
-//         className="flex flex-col items-center"
-//         style={{
-//           transform: "translate(0, -40px)",
-//         }}>
-//         <div
-//           className=""
-//           style={{
-//             background: "#414455",
-//             width: "80px",
-//             height: "80px",
-//             borderRadius: "999px",
-//           }}>
-//           <img
-//             src="https://assets.codepen.io/3685267/res-react-dash-rocket.svg"
-//             alt=""
-//             className="w-full h-full"
-//           />
-//         </div>
-//         <div className="text-white font-bold mt-3">
-//           No Components Created Yet
-//         </div>
-//         <div className="mt-2">Simply create your first component</div>
-//         <div className="mt-1">Just click on the button</div>
-//         <div
-//           className="flex items-center p-3 mt-3"
-//           style={{
-//             background: "#2f49d1",
-//             borderRadius: "15px",
-//             padding: "8px 16px",
-//             justifyContent: "center",
-//             color: "white",
-//           }}>
-//           <Icon path="res-react-dash-add-component" className="w-5 h-5" />
-//           <div className="ml-2">Add Component</div>
-//           <div
-//             className="ml-2"
-//             style={{
-//               background: "#4964ed",
-//               borderRadius: "15px",
-//               padding: "4px 8px 4px 8px",
-//             }}>
-//             129
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
 
 function SidebarIcons({ id }) {
   const icons = {

@@ -58,7 +58,10 @@ export function Astrowalk(props) {
       </group>
       <Html
         className="w-[1000px] -bottom-64 left-20"
-        style={{ transform: "scale(0.65)", opacity: "0.7" }}>
+        style={{
+          transform: "scale(0.65)",
+          opacity: "0.8",
+        }}>
         <Dashboard />
       </Html>
     </group>
