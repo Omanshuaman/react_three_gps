@@ -33,38 +33,75 @@ export function Astrowalk(props) {
     //@ts-ignore
     console.log("camera postion", camera?.position);
   });
+  const clone1 = useRef();
+  const clone2 = useRef();
+
   return (
-    <group position={[-3, 0, 0]}>
-      <SphereComp
-        size={0.06}
-        amount={10}
-        color="#ff1100" // Darker red color
-        glow="yellow"
-        emissive="#ff1100" // Darker red emissive
-        position={[0, 2.1, 0]}
-      />
-      <group ref={group} {...props} dispose={null} scale={10.5}>
-        <group name="Scene">
-          <group name="Armature" rotation={[Math.PI / 2, 0, 0]} scale={0.01}>
-            <skinnedMesh
-              name="Suit_no_tent_Combined_Mesh"
-              geometry={nodes.Suit_no_tent_Combined_Mesh.geometry}
-              material={materials.lambert1}
-              skeleton={nodes.Suit_no_tent_Combined_Mesh.skeleton}
-              castShadow></skinnedMesh>
-            <primitive object={nodes.mixamorigHips} />
+    <>
+      <group position={[-3, 0, 0]}>
+        <SphereComp
+          size={0.06}
+          amount={10}
+          color="#ff1100" // Darker red color
+          glow="yellow"
+          emissive="#ff1100" // Darker red emissive
+          position={[0, 2.1, 0]}
+        />
+        <group ref={group} {...props} dispose={null} scale={10.5}>
+          <group name="Scene">
+            <group name="Armature" rotation={[Math.PI / 2, 0, 0]} scale={0.01}>
+              <skinnedMesh
+                name="Suit_no_tent_Combined_Mesh"
+                geometry={nodes.Suit_no_tent_Combined_Mesh.geometry}
+                material={materials.lambert1}
+                skeleton={nodes.Suit_no_tent_Combined_Mesh.skeleton}
+                castShadow></skinnedMesh>
+              <primitive object={nodes.mixamorigHips} />
+            </group>
           </group>
         </group>
+        <Html
+          className="w-[1000px] -bottom-64 left-20"
+          style={{
+            transform: "scale(0.65)",
+            opacity: "0.8",
+          }}>
+          <Dashboard />
+        </Html>
       </group>
-      <Html
-        className="w-[1000px] -bottom-64 left-20"
-        style={{
-          transform: "scale(0.65)",
-          opacity: "0.8",
-        }}>
-        <Dashboard />
-      </Html>
-    </group>
+      <group position={[-8, 0, -20]}>
+        <SphereComp
+          size={0.08}
+          amount={10}
+          color="green"
+          glow="yellow"
+          emissive="green"
+          position={[0, 2.1, 0]}
+        />
+        <mesh
+          ref={clone1}
+          scale={10.5}
+          geometry={nodes.Suit_no_tent_Combined_Mesh.geometry.clone()}
+          material={materials.lambert1}
+          skeleton={nodes.Suit_no_tent_Combined_Mesh.skeleton}></mesh>
+      </group>
+      <group position={[-2, 0, -35]}>
+        <SphereComp
+          size={0.08}
+          amount={10}
+          color="green"
+          glow="yellow"
+          emissive="green"
+          position={[0, 2.1, 0]}
+        />
+        <mesh
+          ref={clone2}
+          scale={10.5}
+          geometry={nodes.Suit_no_tent_Combined_Mesh.geometry.clone()}
+          material={materials.lambert1}
+          skeleton={nodes.Suit_no_tent_Combined_Mesh.skeleton}></mesh>
+      </group>
+    </>
   );
 }
 const SphereComp = ({

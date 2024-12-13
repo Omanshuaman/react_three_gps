@@ -65,7 +65,7 @@ const Suit = () => {
       <Suspense fallback={<Loader />}>
         <hemisphereLight intensity={0.5} color="white" groundColor="black" />
         <Environment
-          files="/snow_field_2k.hdr"
+          files="/snow_field_4k.hdr"
           ground={{ height: 6, radius: 40, scale: 40 }}
         />
 
