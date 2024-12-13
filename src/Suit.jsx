@@ -45,7 +45,7 @@ const Suit = () => {
   return (
     <Canvas
       camera={{
-        position: [-11.78464723440229, 0.8967611230370984, 2.077957903545101],
+        position: [-2.104239111996178, 1.6354561820354738, 10.354541977271428],
         fov: 30,
       }}
       shadows>
@@ -75,9 +75,9 @@ const Suit = () => {
           maxPolarAngle={Math.PI / 2.1}
         />
         <group position={[0, 0, 0]}>
-          {/* <Astrowalk /> */}
+          <Astrowalk />
           {/* <Astronaut /> */}
-          <Kamdo rotation={[0, Math.PI, 0]} position={[0, 0, -3]} />
+          {/* <Kamdo rotation={[0, Math.PI, 0]} position={[0, 0, -3]} /> */}
         </group>
         <mesh
           rotation={[-0.5 * Math.PI, 0, 0]}

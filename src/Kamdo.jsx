@@ -12,15 +12,9 @@ import { easing } from "maath";
 import * as THREE from "three";
 import { useSpring, animated } from "@react-spring/three";
 
-import {
-  Selection,
-  Select,
-  EffectComposer,
-  Outline,
-} from "@react-three/postprocessing";
+import { Select } from "@react-three/postprocessing";
 import { LayerMaterial, Depth } from "lamina";
 
-import Test from "./Test";
 import Dashboard from "./Dashboard";
 
 export const Kamdo = ({ ...props }) => {
