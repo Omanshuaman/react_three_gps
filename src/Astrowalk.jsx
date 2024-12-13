@@ -23,6 +23,8 @@ export function Astrowalk(props) {
     const action = actions["Walk"];
     if (action) {
       action.setLoop(LoopRepeat);
+      action.timeScale = 0.2; // Slow down the animation to half speed
+
       action.play();
     }
   }, [actions]);
