@@ -101,13 +101,6 @@ const SphereComp = ({
       </Sphere>
 
       <Glow scale={size * 1.2} near={-25} color={glow || emissive || color} />
-      <Sparkles
-        count={amount}
-        scale={size * 2}
-        size={1}
-        speed={0.4}
-        color="yellow"
-      />
     </animated.mesh>
   );
 };
