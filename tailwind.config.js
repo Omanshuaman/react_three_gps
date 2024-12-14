@@ -16,9 +16,9 @@ module.exports = {
           "100%": { transform: "scaleY(1)" },
         },
         tvClose: {
-          "0%": { transform: "scaleY(1)" },
-          "50%": { transform: "scaleY(0.1)", opacity: "1" },
-          "100%": { transform: "scaleY(0)", opacity: "0" },
+          "0%": { transform: "scaleY(0.7) scale(0.7)", opacity: "0.85" },
+          "50%": { transform: "scaleY(0.1) scale(0.7)", opacity: "1" },
+          "100%": { transform: "scaleY(0) scale(0.7)", opacity: "0" },
         },
         "fade-in-out": {
           "0%, 100%": { opacity: 0 },

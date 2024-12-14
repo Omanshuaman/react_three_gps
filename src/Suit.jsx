@@ -100,12 +100,14 @@ const Suit = () => {
         </Suspense>
       </Canvas>
       <div
-        className="w-[1000px] fixed -right-36 -top-24 z-50"
+        className={`${
+          !isModelOpen ? "" : "animate-tvClose"
+        } w-[1000px] fixed -right-36 -top-24 z-50`}
         style={{
           transform: "scale(0.7)",
           opacity: "0.85",
         }}>
-        <div className={`${!isModelOpen ? "" : "animate-tvClose"}`}>
+        <div>
           <div className="flex justify-between px-1">
             <div></div>
             <button
