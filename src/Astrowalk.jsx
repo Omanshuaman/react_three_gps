@@ -41,7 +41,7 @@ export function Astrowalk(props) {
 
   return (
     <>
-      <group position={[-3, 0, 0]}>
+      <group position={[-1, 0, 0]}>
         <SphereComp
           size={0.06}
           amount={10}
@@ -63,39 +63,6 @@ export function Astrowalk(props) {
             </group>
           </group>
         </group>
-        <Html
-          className="w-[1100px] -bottom-72 left-0"
-          style={{
-            transform: "scale(0.7)",
-            opacity: "0.8",
-          }}>
-          <div className={`${!isModelOpen ? "" : "animate-tvClose"}`}>
-            <div className="flex justify-between px-1">
-              <div></div>
-              <button
-                type="button"
-                onClick={toggleModel}
-                class="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-500 hover:text-gray-600 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 w-fit">
-                <span class="sr-only">Close menu</span>
-                <svg
-                  class="h-6 w-6"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  aria-hidden="true">
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
-              </button>
-            </div>
-            <Dashboard />
-          </div>
-        </Html>
       </group>
       <group position={[-8, 0, -20]}>
         <SphereComp

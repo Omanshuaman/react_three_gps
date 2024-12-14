@@ -267,7 +267,7 @@ function MenuItem({ item: { id, title, notifications }, onClick, selected }) {
 }
 function Content({ onSidebarHide }) {
   return (
-    <div className="flex w-full bg-[#1e1e1e] ">
+    <div className="flex w-full bg-[#1e1e1e] rounded-md ">
       <div className=" h-screen flex-grow overflow-x-hidden overflow-auto flex flex-wrap content-start p-2 ">
         {suitData.map(
           ({
@@ -305,19 +305,14 @@ function Content({ onSidebarHide }) {
           </div>
         </div>
 
-        <div className="w-full p-2 lg:w-1/3">
+        <div className="w-full p-2 lg:w-1/2">
           <div className="rounded-lg bg-card h-80">
             <Segmentation />
           </div>
         </div>
-        <div className="w-full p-2 lg:w-1/3">
+        <div className="w-full p-2 lg:w-1/2">
           <div className="rounded-lg bg-card h-80">
             <Satisfication />
-          </div>
-        </div>
-        <div className="w-full p-2 lg:w-1/3">
-          <div className="rounded-lg bg-card overflow-hidden h-80">
-            <AddComponent />
           </div>
         </div>
       </div>
@@ -359,7 +354,7 @@ function SuitCard({
           <div className="flex items-center">
             <div className="ml-2">
               <div className="flex items-center">
-                <div className="mr-2 font-bold text-white">{name}</div>
+                <div className="mr-2 font-bold text-white text-xs">{name}</div>
                 <Icon path="res-react-dash-tick" />
               </div>
               <div className="text-xs">{position}</div>
