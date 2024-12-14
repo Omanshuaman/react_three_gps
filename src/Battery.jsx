@@ -4,7 +4,7 @@ import { useNavigate } from "react-router";
 
 const suitData = [
   {
-    name: "Explorer Suit Alpha",
+    name: "RA2412675 Suit Terra",
     assignedTo: "John Doe",
     operationalTemp: "-50°C to -10°C",
     status: "Ready",
@@ -14,7 +14,7 @@ const suitData = [
 
 function Content({ id, batteryCount }) {
   return (
-    <div className="flex flex-col h-fit p-4 bg-gray-900 w-full animate-tvOpen">
+    <div className="flex flex-col h-fit p-3 bg-gray-900 w-full animate-tvOpen">
       {/* Suit Cards Section */}
       <div className="flex flex-wrap">
         {suitData.map((suit) => (
@@ -44,7 +44,7 @@ function SuitCard({ key, id, name, operationalTemp, batteryLife }) {
     <div className="w-full p-2">
       <div className="rounded-lg bg-card flex justify-between p-3">
         <div>
-          <div className="flex items-center">
+          <div className="flex items-center gap-2">
             <div className="text-lg font-bold text-blue-500 mr-2">{`${id}`}</div>
             <img
               src={`https://cdn2.iconfinder.com/data/icons/mech-mecha-robot/152/mech-robot-5-512.png`}
