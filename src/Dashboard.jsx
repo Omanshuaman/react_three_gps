@@ -592,7 +592,7 @@ function AntarcticSuitRegions() {
 
 function Segmentation() {
   return (
-    <div className="p-6 h-full relative bg-[#171717] text-gray-100 rounded-2xl text-xs">
+    <div className="p-6 h-full relative bg-[#171717] text-gray-100 rounded-2xl text-sm">
       <div className="absolute inset-0 flex justify-between items-start p-0">
         {/* Top Left Corner */}
         <span className="w-20 h-20 border-t-4 border-l-4  border-[#00436a] rounded-tl-2xl"></span>
@@ -659,7 +659,7 @@ function Satisfication() {
     config: config.molasses,
   });
   return (
-    <div className="p-6 h-full relative bg-[#171717] text-gray-100 rounded-2xl text-xs">
+    <div className="p-6 h-full relative bg-[#171717] text-gray-100 rounded-2xl text-sm">
       <div className="absolute inset-0 flex justify-between items-start p-0">
         {/* Top Left Corner */}
         <span className="w-20 h-20 border-t-4 border-l-4  border-[#00436a] rounded-tl-2xl"></span>
