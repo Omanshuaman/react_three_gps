@@ -101,7 +101,7 @@ const Suit = () => {
       </Canvas>
       <div
         className={`${
-          !isModelOpen ? "" : "animate-tvClose"
+          !isModelOpen ? "animate-tvOpen2" : "animate-tvClose"
         } w-[1000px] fixed -right-36 -top-24 z-50`}
         style={{
           transform: "scale(0.7)",

@@ -10,7 +10,7 @@ export const ModelProvider = ({ children }) => {
   };
 
   return (
-    <ModelContext.Provider value={{ isModelOpen, toggleModel }}>
+    <ModelContext.Provider value={{ isModelOpen, toggleModel, setIsModelOpen }}>
       {children}
     </ModelContext.Provider>
   );

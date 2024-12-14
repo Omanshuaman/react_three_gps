@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { act, useEffect, useRef, useState } from "react";
 import {
   useGLTF,
   useAnimations,
@@ -20,7 +20,13 @@ export function Astrowalk(props) {
   const group = useRef();
   const { nodes, materials, animations } = useGLTF("/Astrowalk.glb");
   const { actions } = useAnimations(animations, group);
-  const { isModelOpen, toggleModel } = useModel();
+  const { isModelOpen, toggleModel, setIsModelOpen } = useModel();
+  const sphereRef = useRef();
+  const handleClick = () => {
+    setIsModelOpen(false);
+    console.log(isModelOpen);
+    console.log("object clicked");
+  };
   console.log("isModelOpen", isModelOpen);
   useEffect(() => {
     const action = actions["Walk"];
@@ -32,23 +38,21 @@ export function Astrowalk(props) {
     }
   }, [actions]);
   const { camera } = useThree();
-  useFrame(() => {
-    //@ts-ignore
-    console.log("camera postion", camera?.position);
-  });
+  // useFrame(() => {
+  //   console.log("camera postion", camera?.position);
+  // });
   const clone1 = useRef();
   const clone2 = useRef();
 
   return (
     <>
-      <group position={[-1, 0, 0]}>
+      <group position={[-1, 0, 0]} onClick={handleClick}>
         <SphereComp
           size={0.06}
           amount={10}
-          color="#ff1100" // Darker red color
+          color="#ff1100"
           glow="yellow"
-          emissive="#ff1100" // Darker red emissive
-          position={[0, 2.1, 0]}
+          emissive="#ff1100"
         />
         <group ref={group} {...props} dispose={null} scale={10.5}>
           <group name="Scene">
@@ -118,9 +122,14 @@ const SphereComp = ({
     },
     config: { duration: 1000 },
   });
-
+  const { position } = useSpring({
+    from: { position: [0, 2.1, 0] },
+    to: { position: [0, 2.1, 1.5] },
+    config: { duration: (1.37354 * 1000) / 0.19 },
+    loop: { reverse: true },
+  });
   return (
-    <animated.mesh {...props}>
+    <animated.mesh {...props} position={position}>
       <Sphere args={[size, 64, 64]}>
         <animated.meshStandardMaterial
           roughness={0}

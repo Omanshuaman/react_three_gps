@@ -15,6 +15,11 @@ module.exports = {
           "50%": { transform: "scaleY(0.1)", opacity: "1" },
           "100%": { transform: "scaleY(1)" },
         },
+        tvOpen2: {
+          "0%": { transform: "scaleY(0) scale(0.7)", opacity: "0" },
+          "50%": { transform: "scaleY(0.1) scale(0.7)", opacity: "1" },
+          "100%": { transform: "scaleY(1) scale(0.7)" },
+        },
         tvClose: {
           "0%": { transform: "scaleY(0.7) scale(0.7)", opacity: "0.85" },
           "50%": { transform: "scaleY(0.1) scale(0.7)", opacity: "1" },
@@ -27,6 +32,8 @@ module.exports = {
       },
       animation: {
         tvOpen: "tvOpen 1s ease-in-out forwards",
+        tvOpen2: "tvOpen2 1s ease-in-out forwards",
+
         tvClose: "tvClose 1s ease-in-out forwards",
         "fade-in-out": "fade-in-out 2s ease-in-out infinite",
       },
